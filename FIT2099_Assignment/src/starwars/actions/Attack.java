@@ -6,6 +6,7 @@ import starwars.SWActionInterface;
 import starwars.SWActor;
 import starwars.SWAffordance;
 import starwars.SWEntityInterface;
+import starwars.entities.actors.Droid;
 
 /**
  * Command to attack entities.
@@ -86,10 +87,12 @@ public class Attack extends SWAffordance implements SWActionInterface {
 	 * 
 	 * @author 	dsquire -  adapted from the equivalent class in the old Eiffel version
 	 * @author 	Asel - bug fixes.
+	 * @author  Seolhyun95 - droid disable
 	 * @param 	a the <code>SWActor</code> who is attacking
 	 * @pre 	this method should only be called if the <code>SWActor a</code> is alive
 	 * @pre		an <code>Attack</code> must not be performed on a dead <code>SWActor</code>
 	 * @post	if a <code>SWActor</code>dies in an <code>Attack</code> their <code>Attack</code> affordance would be removed
+	 * 			if the <code>SWActor</code> is a <code>Droid</code>, the droid will also be disabled
 	 * @see		starwars.SWActor#isDead()
 	 * @see 	starwars.Team
 	 */
@@ -152,6 +155,11 @@ public class Attack extends SWAffordance implements SWActionInterface {
 							
 				//remove the attack affordance of the dead actor so it can no longer be attacked
 				targetActor.removeAffordance(this);
+				
+				//if target was a droid, disable it!
+				if (targetActor instanceof Droid) {
+					((Droid) targetActor).disable();
+				}
 
 				
 			}

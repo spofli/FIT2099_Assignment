@@ -34,7 +34,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	
 	/**The amount of <code>hitpoints</code> of this actor. If the hitpoints are zero or less this <code>Actor</code> is dead*/
 	private int hitpoints;
-	
+
 	/**The world this <code>SWActor</code> belongs to.*/
 	protected SWWorld world;
 	
@@ -51,7 +51,14 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	private String symbol;
 	
 	/**A set of <code>Capabilities</code> of this <code>SWActor</code>*/
-	private HashSet<Capability> capabilities;
+	protected HashSet<Capability> capabilities;
+	
+	
+	/**The amount of <code>hitpoints</code> that his actor can have/heal up to. Healing won't give a character more hitpoints than this
+	 *  @author Seolhyun95	
+	 * */
+	private int maxhitpoints;
+	
 	
 	/**
 	 * Constructor for the <code>SWActor</code>.
@@ -81,10 +88,16 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		this.hitpoints = hitpoints;
 		this.world = world;
 		this.symbol = "@";
+		capabilities = new HashSet<Capability>();
 		
 		//SWActors are given the Attack affordance hence they can be attacked
 		SWAffordance attack = new Attack(this, m);
 		this.addAffordance(attack);
+		
+		//SWActors record the max amount of hitpoints they can have - to prevent "overhealing"
+		// As of now, actors all start at max hp, this is to be changed if something starts at a lower hp
+		// Added by @ Seolhyun95
+		this.maxhitpoints = hitpoints;
 	}
 	
 	/**
@@ -119,6 +132,13 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	@Override
 	public int getHitpoints() {
 		return hitpoints;
+	}
+	/**
+	 * Returns the max hitpoints of this <code>SWActor</code>
+	 * @return maxhitpoints of this <code>SWActor</code>
+	 */
+	public int getMaxHitpoints() {
+		return maxhitpoints;
 	}
 
 	/**
@@ -180,6 +200,25 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		assert (damage >= 0)	:"damage on SWActor must not be negative";
 		this.hitpoints -= damage;
 	}
+	
+	/**
+	 * Method insists healing on this <code>SWActor</code> by increasing a 
+	 * certain amount of <code>healing</code> from this <code>SWActor</code>'s <code>hitpoints</code>
+	 * 
+	 * @param 	healing the amount of <code>hitpoints</code> to be increased
+	 * @pre 	<code>healing</code> should not be negative
+	 * @author Seolhyun95
+	 */
+	public void healDamage(int healing) {
+		//Precondition 1: Ensure the healing is not negative. Negative healing could decrease the SWActor's hitpoints
+		assert (healing >= 0)	:"damage on SWActor must not be negative";
+		this.hitpoints += healing;
+		
+		//Ensures that the actor isn't healed past it's maximum hitpoints, that's broken.
+		if (hitpoints >= maxhitpoints) {
+			hitpoints = maxhitpoints;
+		}	
+	}
 
 	/**
 	 * Assigns this <code>SWActor</code>'s <code>itemCarried</code> to 
@@ -232,8 +271,6 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	public boolean isHumanControlled() {
 		return humanControlled;
 	}
-	
-
 	@Override
 	public boolean hasCapability(Capability c) {
 		return capabilities.contains(c);

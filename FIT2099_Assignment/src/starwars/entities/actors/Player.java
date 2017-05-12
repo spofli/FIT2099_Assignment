@@ -4,6 +4,7 @@ package starwars.entities.actors;
 import java.util.List;
 
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
+import starwars.Capability;
 import starwars.SWActor;
 import starwars.SWEntityInterface;
 import starwars.SWLocation;
@@ -43,6 +44,9 @@ public class Player extends SWActor {
 	public Player(Team team, int hitpoints, MessageRenderer m, SWWorld world) {
 		super(team, hitpoints, m, world);
 		humanControlled = true; // this feels like a hack. Surely this should be dynamic
+		
+		// Luke can repair droids and disassemble them
+		capabilities.add(Capability.MECHANIC);
 	}
 	
 	/**

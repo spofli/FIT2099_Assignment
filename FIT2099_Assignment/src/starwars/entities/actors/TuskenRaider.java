@@ -38,7 +38,7 @@ public class TuskenRaider extends SWActor {
 	 * 
 	 */
 	public TuskenRaider(int hitpoints, String name, MessageRenderer m, SWWorld world) {
-		super(Team.TUSKEN, 50, m, world);
+		super(Team.TUSKEN, hitpoints, m, world);
 		// TODO Auto-generated constructor stub
 		this.name = name;
 	}
@@ -52,7 +52,7 @@ public class TuskenRaider extends SWActor {
 
 		AttackInformation attack = AttackNeighbours.attackLocals(this, this.world, false, false);
 		if (attack != null) {
-			say(getShortDescription() + " has attacked" + attack.entity.getShortDescription());
+			say(getShortDescription() + " has attacked " + attack.entity.getShortDescription());
 			scheduler.schedule(attack.affordance, this, 1);
 		}
 		else if (Math.random() > 0.5){
@@ -65,7 +65,6 @@ public class TuskenRaider extends SWActor {
 					possibledirections.add(d);
 				}
 			}
-
 			Direction heading = possibledirections.get((int) (Math.floor(Math.random() * possibledirections.size())));
 			say(getShortDescription() + "is heading " + heading + " next.");
 			Move myMove = new Move(heading, messageRenderer, world);

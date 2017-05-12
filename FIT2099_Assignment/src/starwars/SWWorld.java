@@ -107,18 +107,16 @@ public class SWWorld extends World {
 		
 		BenKenobi ben = BenKenobi.getBenKenobi(iface, this, patrolmoves);
 		ben.setSymbol("B");
+		
 		loc = myGrid.getLocationByCoordinates(4,  5);
 		entityManager.setLocation(ben, loc);
-		
-		
-		loc = myGrid.getLocationByCoordinates(5,9);
-		
-		// Luke
+			
+		// Luke	
 		Player luke = new Player(Team.GOOD, 100, iface, this);
 		luke.setShortDescription("Luke");
+		loc = myGrid.getLocationByCoordinates(5,9);
 		entityManager.setLocation(luke, loc);
 		luke.resetMoveCommands(loc);
-		
 		
 		// Beggar's Canyon 
 		for (int col = 3; col < 8; col++) {
@@ -141,24 +139,63 @@ public class SWWorld extends World {
 				entityManager.setLocation(new Reservoir(iface), loc);				
 			}
 		}
+		// R2-D2
+		// MUST come with these set of patrol
+		// and placed somewhere with enough space
+		Direction [] r2d2Patrol = 
+			{CompassBearing.EAST, CompassBearing.EAST,CompassBearing.EAST, CompassBearing.EAST,CompassBearing.EAST,
+                CompassBearing.WEST, CompassBearing.WEST, CompassBearing.WEST, CompassBearing.WEST, CompassBearing.WEST};
+		R2D2 theR2 = new R2D2(iface, this, r2d2Patrol);
+		theR2.setSymbol("R");
+		loc = myGrid.getLocationByCoordinates(1, 1);
+		entityManager.setLocation(theR2, loc);
 		
-		// Ben Kenobi's hut
+		// C-3P0
+		C3P0 theC3 = new C3P0(iface, this);
+		loc = myGrid.getLocationByCoordinates(1, 2);
+		entityManager.setLocation(theC3, loc);
+		
+		// Disabled Droids for R2-D2
+		BasicDroid disabledDroid1 = new BasicDroid(50, "Generic Droid A", iface, this) ;
+		disabledDroid1.disable();
+		disabledDroid1.setSymbol("D");
+		loc = myGrid.getLocationByCoordinates(2, 1);
+		entityManager.setLocation(disabledDroid1, loc);
+		
+		BasicDroid disabledDroid2 = new BasicDroid(50, "Generic Droid B", iface, this) ;
+		disabledDroid2.disable();
+		disabledDroid2.setSymbol("D");
+		loc = myGrid.getLocationByCoordinates(4, 1);
+		entityManager.setLocation(disabledDroid2, loc);
+		
+		BasicDroid disabledDroid3 = new BasicDroid(50, "Generic Droid C", iface, this) ;
+		disabledDroid3.disable();
+		disabledDroid3.setSymbol("D");
+		loc = myGrid.getLocationByCoordinates(6, 1);
+		entityManager.setLocation(disabledDroid3, loc);
+		
 		/*
 		 * Scatter some other entities and actors around
 		 */
 		// a canteen
-		loc = myGrid.getLocationByCoordinates(3,1);
-		SWEntity canteen = new Canteen(iface, 10,0);
+		loc = myGrid.getLocationByCoordinates(5,8);
+		SWEntity canteen = new Canteen(iface, 50,0);
 		canteen.setSymbol("o");
 		canteen.setHitpoints(500);
 		entityManager.setLocation(canteen, loc);
 		canteen.addAffordance(new Take(canteen, iface));
+		
+		//a full canteen on Ben's patrol route
+		loc = myGrid.getLocationByCoordinates(5,6);
+		SWEntity bensCanteen = new Canteen(iface, 50, 50);
+		bensCanteen.setSymbol("o");
+		bensCanteen.setHitpoints(500);;
+		entityManager.setLocation(bensCanteen, loc);
+		bensCanteen.addAffordance(new Take(bensCanteen, iface));
 
 		// an oil can treasure
-		loc = myGrid.getLocationByCoordinates(1,5);
-		SWEntity oilcan = new SWEntity(iface);
-		oilcan.setShortDescription("an oil can");
-		oilcan.setLongDescription("an oil can, which would theoretically be useful for fixing robots");
+		loc = myGrid.getLocationByCoordinates(5,8);
+		SWEntity oilcan = new OilCan(iface, 100, 100);
 		oilcan.setSymbol("x");
 		oilcan.setHitpoints(100);
 		// add a Take affordance to the oil can, so that an actor can take it
@@ -175,14 +212,18 @@ public class SWWorld extends World {
 		loc = myGrid.getLocationByCoordinates(3, 4);
 		entityManager.setLocation(blaster, loc);
 		
-		// A Tusken Raider
-		TuskenRaider tim = new TuskenRaider(10, "Tim", iface, this);
+		// DroidParts for testing
+		DroidParts droidparts = new DroidParts(iface);
+		loc = myGrid.getLocationByCoordinates(5, 8);
+		entityManager.setLocation(droidparts, loc);
 		
+		// A Tusken Raider
+		TuskenRaider tim = new TuskenRaider(50, "Tim", iface, this);
 		tim.setSymbol("T");
-		loc = myGrid.getLocationByCoordinates(4,3);
+		loc = myGrid.getLocationByCoordinates(5,5);
 		entityManager.setLocation(tim, loc);
 
-	}
+	}	
 
 	/*
 	 * Render method was removed from here
