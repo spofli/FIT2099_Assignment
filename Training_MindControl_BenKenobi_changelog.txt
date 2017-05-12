@@ -1,0 +1,13 @@
+Design changes
+
+Force class idea removed.
+
+Determining if Actor has enough force to perform actions that require force done in canDo().
+
+NPC Actors not able to mind control YET.
+
+Training now exclusive to Player (Receiving training from Ben).
+
+Mind control now works by setting boolean in SWActor to true
+Behavior to prompt user to select direction added
+
