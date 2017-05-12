@@ -15,7 +15,7 @@ import starwars.entities.LightSaber;
  * Behavior to <code>Take</code> a <code>LightSaber</code> if on the same 
  * <code>Location</code> as the <code>SWActor</code>
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  *
  */
 public class PickLightsaber {

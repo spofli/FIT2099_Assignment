@@ -4,7 +4,7 @@ package starwars.entities;
  * Interface for SWEntities that are emptiable
  * 
  * All <code>Emptiable</code> objects must have <code>Capability</code> EMPTIABLE
- * @author Seolhyun95
+ * @author Daryl Ho
  */
 public interface Emptiable {
 	/**

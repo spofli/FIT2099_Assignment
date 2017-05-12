@@ -14,7 +14,7 @@ import starwars.actions.Empty;
  * that has a Dip affordance.
  * 
  * Canteen can be drank from once it is full
- * @author Seolhyun95 - change made for Assignment 2
+ * @author Daryl Ho - change made for Assignment 2
  * 
  * @author Robert Merkel
  * 
@@ -38,7 +38,7 @@ public class Canteen extends SWEntity implements Fillable, Emptiable{
 	 *  <li> set the depletionRate of the <code>Canteen</code> </li>
 	 * </ul>
 	 *  
-	 * @author Seolhyun95
+	 * @author Daryl Ho
 	 * @param m	<code>MessageRendere</code> being used
 	 * @param capacity maximum level of liquid stored by canteen
 	 * @param initialLevel initial level of liquid held by canteen
@@ -96,7 +96,7 @@ public class Canteen extends SWEntity implements Fillable, Emptiable{
 	 * Because drinking from canteen heals by how much you empty it
 	 * Note that items can start at a lower level than depeletionRate, in that case
 	 * You simply deplete by how much is left
-	 * @author Seolhyun95
+	 * @author Daryl Ho
 	 */
 	public int getEmptiedAmount() {
 		int emptyAmount = (int) Math.floor(depletionRate * capacity);

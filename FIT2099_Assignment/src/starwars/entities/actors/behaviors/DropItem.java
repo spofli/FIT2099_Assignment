@@ -9,7 +9,7 @@ import starwars.SWEntityInterface;
 /**
  * Behavior for <code>SWActors</code> to <code>Leave</code> their held item
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  *
  */
 public class DropItem {

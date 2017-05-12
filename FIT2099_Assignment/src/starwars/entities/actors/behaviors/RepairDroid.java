@@ -19,7 +19,7 @@ import starwars.entities.actors.Droid;
 /**
  * Behavior for <code>R2D2</code> to perform special repair droid actions.
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  *
  */
 public class RepairDroid {

@@ -2,7 +2,10 @@ package starwars.entities.actors;
 
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
+import starwars.SWActor;
+import starwars.SWAffordance;
 import starwars.SWLegend;
+import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
 import starwars.actions.Leave;
@@ -16,6 +19,8 @@ import starwars.entities.actors.behaviors.Patrol;
 import starwars.entities.actors.behaviors.takeCanteens;
 import starwars.entities.actors.behaviors.DropItem;
 import starwars.entities.actors.behaviors.PickLightsaber;
+import starwars.entities.actors.behaviors.TrainTarget;
+import starwars.actions.Learn;
 
 /**
  * Ben (aka Obe-Wan) Kenobi.  
@@ -33,7 +38,7 @@ public class BenKenobi extends SWLegend {
 	private static BenKenobi ben = null; // yes, it is OK to return the static instance!
 	private Patrol path;
 	private BenKenobi(MessageRenderer m, SWWorld world, Direction [] moves) {
-		super(Team.GOOD, 1000, m, world);
+		super(Team.GOOD, 1000, 100, m, world);
 		path = new Patrol(moves);
 		this.setShortDescription("Ben Kenobi");
 		this.setLongDescription("Ben Kenobi, an old man who has perhaps seen too much");
@@ -42,7 +47,8 @@ public class BenKenobi extends SWLegend {
 		// Added Leave affordance so Ben can drop his lightsaber...
 		bensweapon.addAffordance(new Leave(bensweapon, m));
 		setItemCarried(bensweapon);
-		
+		SWAffordance learn = new Learn(this,messageRenderer);
+		this.addAffordance(learn);
 	}
 
 	public static BenKenobi getBenKenobi(MessageRenderer m, SWWorld world, Direction [] moves) {
@@ -79,6 +85,12 @@ public class BenKenobi extends SWLegend {
 		scheduler.schedule(carriedItem.affordance, ben, 1);
 	}
 	
+	private String describeLocation() {
+		SWLocation location = this.world.getEntityManager().whereIs(this);
+		return this.getShortDescription() + " [" + this.getHitpoints() + "] is at " + location.getShortDescription();
+
+	}
+	
 
 	@Override
 	protected void legendAct() {
@@ -86,10 +98,13 @@ public class BenKenobi extends SWLegend {
 		if(isDead()) {
 			return;
 		}
+		say(describeLocation());
 		// Note attacking should STILL come before drinking
 		// Else Ben will drink halfway into the fight!
 		AttackInformation attack;
 		attack = AttackNeighbours.attackLocals(ben,  ben.world, true, true);
+		SWActor actor = null;
+		actor = TrainTarget.trainLuke(ben, ben.world, true, true);
 		
 		if (attack != null) {
 			say(getShortDescription() + " suddenly looks sprightly and attacks " +
@@ -131,12 +146,16 @@ public class BenKenobi extends SWLegend {
 			if (ben.getItemCarried() == null) {
 				pickWeapon();
 				return;
-			}		
+			}
+			if (actor != null && actor.getForcepoints() < 100) {
+				say(getShortDescription() + " offers training to " + actor.getShortDescription());
+			}
+			else {
 			Direction newdirection = path.getNext();
 			say(getShortDescription() + " moves " + newdirection);
 			Move myMove = new Move(newdirection, messageRenderer, world);
 			scheduler.schedule(myMove, this, 1);
-			
+			}
 		}
 	}
 

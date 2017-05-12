@@ -13,7 +13,7 @@ import starwars.entities.actors.Droid;
  * 
  * The affordance is offered by <code>Droid</code> that have no owners!
  *
- * @author Seolhyun95
+ * @author Daryl Ho
  */
 public class Own extends SWAffordance implements SWActionInterface {
 

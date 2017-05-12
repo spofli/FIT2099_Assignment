@@ -10,7 +10,7 @@ import starwars.entities.Emptiable;
 /**
  * An Affordance for containers that can be emptied
  *
- * @author Seolhyun95
+ * @author Daryl Ho
  */
 public class Empty extends SWAffordance {
 

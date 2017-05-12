@@ -46,6 +46,8 @@ public class Move extends SWAction {
 	 * <p>
 	 * This method will only be called if the <code>SWActor a</code> is alive
 	 * 
+	 * This method will set mind control to false if this move was caused by a mind control acton
+	 * 
 	 * @author 	ram
 	 * @param 	a the <code>SWActor</code> who is moving
 	 */
@@ -55,6 +57,9 @@ public class Move extends SWAction {
 			world.moveEntity(a, whichDirection);
 			a.resetMoveCommands(world.find(a));//reset the new possible set of moves based on the new location of the entity
 			messageRenderer.render(a.getShortDescription() + " is moving " + whichDirection);
+		}
+		if (a.isMindControlled()) {
+			a.setMindControl(false);
 		}
 				
 	}

@@ -112,7 +112,7 @@ public class SWWorld extends World {
 		entityManager.setLocation(ben, loc);
 			
 		// Luke	
-		Player luke = new Player(Team.GOOD, 100, iface, this);
+		Player luke = new Player(Team.GOOD, 100, 20, iface, this);
 		luke.setShortDescription("Luke");
 		loc = myGrid.getLocationByCoordinates(5,9);
 		entityManager.setLocation(luke, loc);
@@ -152,27 +152,40 @@ public class SWWorld extends World {
 		
 		// C-3P0
 		C3P0 theC3 = new C3P0(iface, this);
+		theC3.setSymbol("3");
 		loc = myGrid.getLocationByCoordinates(1, 2);
 		entityManager.setLocation(theC3, loc);
 		
 		// Disabled Droids for R2-D2
-		BasicDroid disabledDroid1 = new BasicDroid(50, "Generic Droid A", iface, this) ;
+		BasicDroid disabledDroid1 = new BasicDroid(50, 0, "Generic Droid A", iface, this) ;
 		disabledDroid1.disable();
 		disabledDroid1.setSymbol("D");
 		loc = myGrid.getLocationByCoordinates(2, 1);
 		entityManager.setLocation(disabledDroid1, loc);
 		
-		BasicDroid disabledDroid2 = new BasicDroid(50, "Generic Droid B", iface, this) ;
+		BasicDroid disabledDroid2 = new BasicDroid(50, 0, "Generic Droid B", iface, this) ;
 		disabledDroid2.disable();
 		disabledDroid2.setSymbol("D");
 		loc = myGrid.getLocationByCoordinates(4, 1);
 		entityManager.setLocation(disabledDroid2, loc);
 		
-		BasicDroid disabledDroid3 = new BasicDroid(50, "Generic Droid C", iface, this) ;
+		BasicDroid disabledDroid3 = new BasicDroid(50, 0, "Generic Droid C", iface, this) ;
 		disabledDroid3.disable();
 		disabledDroid3.setSymbol("D");
 		loc = myGrid.getLocationByCoordinates(6, 1);
 		entityManager.setLocation(disabledDroid3, loc);
+		
+		BasicDroid disabledDroid4 = new BasicDroid(50, 0, "Generic Droid D", iface, this) ;
+		disabledDroid4.disable();
+		disabledDroid4.setSymbol("D");
+		loc = myGrid.getLocationByCoordinates(7, 2);
+		entityManager.setLocation(disabledDroid4, loc);
+		
+		BasicDroid disabledDroid5 = new BasicDroid(50, 0, "Generic Droid E", iface, this) ;
+		disabledDroid5.disable();
+		disabledDroid5.setSymbol("D");
+		loc = myGrid.getLocationByCoordinates(3, 4);
+		entityManager.setLocation(disabledDroid5, loc);
 		
 		/*
 		 * Scatter some other entities and actors around
@@ -218,10 +231,46 @@ public class SWWorld extends World {
 		entityManager.setLocation(droidparts, loc);
 		
 		// A Tusken Raider
-		TuskenRaider tim = new TuskenRaider(50, "Tim", iface, this);
+		TuskenRaider tim = new TuskenRaider(200, 0, "Tim", iface, this);
+		
 		tim.setSymbol("T");
-		loc = myGrid.getLocationByCoordinates(5,5);
+		loc = myGrid.getLocationByCoordinates(4,3);
 		entityManager.setLocation(tim, loc);
+		
+		// A Tusken Raider
+		TuskenRaider tom = new TuskenRaider(200, 0, "Tom", iface, this);
+		
+		tom.setSymbol("T");
+		loc = myGrid.getLocationByCoordinates(4,3);
+		entityManager.setLocation(tom, loc);
+		
+		// A Tusken Raider
+		TuskenRaider tem = new TuskenRaider(200, 0, "Tem", iface, this);
+		
+		tem.setSymbol("T");
+		loc = myGrid.getLocationByCoordinates(4,3);
+		entityManager.setLocation(tem, loc);
+		
+		// A Tusken Raider
+		TuskenRaider tym = new TuskenRaider(200, 0, "Tym", iface, this);
+		
+		tym.setSymbol("T");
+		loc = myGrid.getLocationByCoordinates(4,3);
+		entityManager.setLocation(tym, loc);
+		
+		// Uncle Owen
+		Dummy uown = new Dummy(10,0,"Uncle Owen", iface, this);
+		
+		uown.setSymbol("U");
+		loc = myGrid.getLocationByCoordinates(8, 4);
+		entityManager.setLocation(uown, loc);
+		
+		// Aunt Beru
+		Dummy aberu = new Dummy(10,0,"Aunt Beru", iface, this);
+		
+		aberu.setSymbol("U");
+		loc = myGrid.getLocationByCoordinates(9, 4);
+		entityManager.setLocation(aberu, loc);
 
 	}	
 

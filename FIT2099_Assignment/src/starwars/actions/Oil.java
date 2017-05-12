@@ -20,7 +20,7 @@ import starwars.entities.actors.R2D2;
  * 
  * The <code>Entity</code> should also provide the oil capability.
  *
- * @author Seolhyun95
+ * @author Daryl Ho
  */
 public class Oil extends SWAffordance implements SWActionInterface {
 

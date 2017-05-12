@@ -11,7 +11,7 @@ import starwars.actions.Empty;
  * Owner can use it to oil nearby <code>Droid</code>
  * Unlike the <code>Canteen</code>, has no way to be refilled
  * 
- * @author Seolhyun95 
+ * @author Daryl Ho 
  * 
  */
 public class OilCan extends SWEntity implements Emptiable{

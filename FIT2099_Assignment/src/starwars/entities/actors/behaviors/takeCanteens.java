@@ -15,7 +15,7 @@ import starwars.entities.Canteen;
 /**
  * Behavior for <code>Ben</code> to pickup <code>canteens</code> that aren't empty
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  *
  */
 public class takeCanteens {

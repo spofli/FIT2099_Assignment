@@ -37,8 +37,8 @@ public abstract class SWLegend extends SWActor {
 	 * @param world
 	 */
 	
-	protected SWLegend(Team team, int hitpoints, MessageRenderer m, SWWorld world) {
-		super(team, hitpoints, m, world);
+	protected SWLegend(Team team, int hitpoints, int forcepoints, MessageRenderer m, SWWorld world) {
+		super(team, hitpoints, forcepoints, m, world);
 		isActivated = false;
 	}
 

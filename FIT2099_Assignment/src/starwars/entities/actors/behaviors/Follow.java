@@ -17,7 +17,7 @@ import starwars.SWWorld;
  * Will follow owners if they are in the same or neighbouring <code>Location</code>
  * Else stays put and says that the <code>Droid</code> has lost sight of the owner
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  *
  */
 public class Follow {

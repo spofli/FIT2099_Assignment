@@ -19,7 +19,7 @@ import starwars.entities.actors.behaviors.C3Quotes;
  * Has a 10% of saying 5 random lines each turn
  * Hardcoded to have 200 hitpoints
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  *
  */
 public class C3P0 extends Droid {
@@ -36,7 +36,7 @@ public class C3P0 extends Droid {
 	 * @param world
 	 */
 	public C3P0(MessageRenderer m, SWWorld world) {
-		super(200, "C-3P0", m, world);
+		super(200, 0, "C-3P0", m, world);
 		// TODO Auto-generated constructor stub
 		
 	}

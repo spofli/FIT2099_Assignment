@@ -41,8 +41,8 @@ public class Player extends SWActor {
 	 * @param world the <code>SWWorld</code> world to which this <code>Player</code> belongs to
 	 * 
 	 */
-	public Player(Team team, int hitpoints, MessageRenderer m, SWWorld world) {
-		super(team, hitpoints, m, world);
+	public Player(Team team, int hitpoints, int forcepoints, MessageRenderer m, SWWorld world) {
+		super(team, hitpoints, forcepoints, m, world);
 		humanControlled = true; // this feels like a hack. Surely this should be dynamic
 		
 		// Luke can repair droids and disassemble them
@@ -79,7 +79,7 @@ public class Player extends SWActor {
 	public void describeScene() {
 		//get the location of the player and describe it
 		SWLocation location = this.world.getEntityManager().whereIs(this);
-		say(this.getShortDescription() + " [" + this.getHitpoints() + "] is at " + location.getShortDescription());
+		say(this.getShortDescription() + " [" + this.getHitpoints() + "/" + this.getForcepoints() + "] is at " + location.getShortDescription());
 		
 		//get the items carried for the player
 		SWEntityInterface itemCarried = this.getItemCarried();

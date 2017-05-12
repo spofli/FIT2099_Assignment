@@ -24,5 +24,7 @@ public enum Capability {
 	
 	MECHANIC, // MECHANIC capability allows an entity to Repair entities with the Repair Affordance and
 				// Disassemble entities with the Disassemble Affordance
+	
+	FORCEWEAPON, ////FORCEWEAPON capability allows an entity to Attack another entity which has the Attack Affordance
 }		
 	

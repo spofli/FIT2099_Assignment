@@ -10,7 +10,7 @@ import starwars.actions.Take;
  * It can be used to repair disabled Droids.
  * Repairing consumes DroidParts
  * 
- * @author Seolhyun95 
+ * @author Daryl Ho 
  */
 
 public class DroidParts extends SWEntity {

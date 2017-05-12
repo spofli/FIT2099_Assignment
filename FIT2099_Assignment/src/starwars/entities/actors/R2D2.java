@@ -27,7 +27,7 @@ import starwars.entities.actors.behaviors.AttackNeighbours;
  * If unowned and non of the above actions are possible, R2-D2 patrols a set path:
  * 5 spaces east then 5 spaces west.
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  *
  */
 public class R2D2 extends Droid {
@@ -48,7 +48,7 @@ public class R2D2 extends Droid {
 	 * @param world
 	 */
 	public R2D2(MessageRenderer m, SWWorld world, Direction[] moves) {
-		super(200, "R2-D2", m, world);
+		super(200, 0, "R2-D2", m, world);
 		// TODO Auto-generated constructor stub
 		path = new Patrol(moves);
 		capabilities.add(Capability.MECHANIC);

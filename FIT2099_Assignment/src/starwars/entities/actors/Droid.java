@@ -46,8 +46,8 @@ public abstract class Droid extends SWActor {
 	 *            <code>Droid</code> belongs to
 	 * 
 	 */
-	public Droid(int hitpoints, String name, MessageRenderer m, SWWorld world) {
-		super(Team.NEUTRAL, hitpoints, m, world);
+	public Droid(int hitpoints, int forcepoints, String name, MessageRenderer m, SWWorld world) {
+		super(Team.NEUTRAL, hitpoints, forcepoints, m, world);
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		

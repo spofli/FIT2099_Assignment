@@ -15,7 +15,7 @@ import starwars.entities.actors.Droid;
  * The affordance is offered by entities that can be repaired.
  * Only offered when disabled
  *
- * @author Seolhyun95
+ * @author Daryl Ho
  */
 public class Repair extends SWAffordance implements SWActionInterface {
 

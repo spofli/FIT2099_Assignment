@@ -87,7 +87,7 @@ public class Attack extends SWAffordance implements SWActionInterface {
 	 * 
 	 * @author 	dsquire -  adapted from the equivalent class in the old Eiffel version
 	 * @author 	Asel - bug fixes.
-	 * @author  Seolhyun95 - droid disable
+	 * @author  Daryl - droid disable
 	 * @param 	a the <code>SWActor</code> who is attacking
 	 * @pre 	this method should only be called if the <code>SWActor a</code> is alive
 	 * @pre		an <code>Attack</code> must not be performed on a dead <code>SWActor</code>
@@ -118,12 +118,15 @@ public class Attack extends SWAffordance implements SWActionInterface {
 			
 			SWEntityInterface itemCarried = a.getItemCarried();
 			if (itemCarried != null) {//if the actor is carrying an item 
-				if (itemCarried.hasCapability(Capability.WEAPON)) {
+				if (itemCarried.hasCapability(Capability.WEAPON) || (itemCarried.hasCapability(Capability.FORCEWEAPON) && a.getForcepoints() >= 50)) {
 					target.takeDamage(itemCarried.getHitpoints() + 1); // blunt weapon won't do much, but it will still do some damage
 					itemCarried.takeDamage(1); // weapon gets blunt
 					a.takeDamage(energyForAttackWithWeapon); // actor uses energy to attack
 				}
 				else {//an attack with a none weapon
+					if (itemCarried.hasCapability(Capability.FORCEWEAPON)) {
+						a.say("\t" + a.getShortDescription() + " does not have enough Force to use " + itemCarried.getShortDescription());
+					}
 					if (targetIsActor) {
 						targetActor.say("\t" + targetActor.getShortDescription()
 								+ " is amused by " + a.getShortDescription()

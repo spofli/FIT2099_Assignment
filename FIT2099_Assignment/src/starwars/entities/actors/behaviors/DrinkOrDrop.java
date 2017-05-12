@@ -11,7 +11,7 @@ import starwars.SWEntityInterface;
  * Behavior made for an <code>SWActor</code> to drink from a <code>Canteen</code> or drop it if it's empty
  * So far only includes Ben Kenobi 
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  *
  */
 public class DrinkOrDrop {

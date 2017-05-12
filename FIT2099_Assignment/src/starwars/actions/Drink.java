@@ -17,7 +17,7 @@ import starwars.entities.Emptiable;
  * and implements the <code>Empty</code> interface.
  * 
  *
- * @author Seolhyun95
+ * @author Daryl Ho
  */
 public class Drink extends SWAffordance implements SWActionInterface {
 

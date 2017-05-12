@@ -4,7 +4,7 @@ package starwars.entities.actors.behaviors;
  * Behavior made to choose from a set of 5 random quotes for
  * C3P0 to say each turn
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  *
  */
 public class C3Quotes {

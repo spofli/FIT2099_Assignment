@@ -14,7 +14,7 @@ import starwars.entities.actors.behaviors.AttackNeighbours;
  * BasicDroid class to implement <code>Droids</code> that stand still without owners.
  * Has no special actions
  * 
- * @author Seolhyun95
+ * @author Daryl Ho
  */
 public class BasicDroid extends Droid {
 
@@ -32,8 +32,8 @@ public class BasicDroid extends Droid {
 	 * @param world the <code>SWWorld</code> world to which this <code>BasicDroid</code> belongs to
 	 * 
 	 */
-	public BasicDroid(int hitpoints, String name, MessageRenderer m, SWWorld world) {
-		super(hitpoints, name, m, world);
+	public BasicDroid(int hitpoints, int forcepoints, String name, MessageRenderer m, SWWorld world) {
+		super(hitpoints, forcepoints, name, m, world);
 		// TODO Auto-generated constructor stub
 		
 	}

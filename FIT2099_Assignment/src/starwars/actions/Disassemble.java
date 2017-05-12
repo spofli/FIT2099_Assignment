@@ -18,7 +18,7 @@ import starwars.entities.actors.Droid;
  * The affordance is offered by entities that can be disassembled(Droids).
  * Only offered when disabled
  *
- * @author Seolhyun95
+ * @author Daryl Ho
  */
 public class Disassemble extends SWAffordance implements SWActionInterface {
 

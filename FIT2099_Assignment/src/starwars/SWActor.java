@@ -34,6 +34,9 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	
 	/**The amount of <code>hitpoints</code> of this actor. If the hitpoints are zero or less this <code>Actor</code> is dead*/
 	private int hitpoints;
+	
+	/**The amount of <code>forcepoints</code> of this actor.*/
+	private int forcepoints;
 
 	/**The world this <code>SWActor</code> belongs to.*/
 	protected SWWorld world;
@@ -53,9 +56,14 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	/**A set of <code>Capabilities</code> of this <code>SWActor</code>*/
 	protected HashSet<Capability> capabilities;
 	
+	/**Determine if Actor is being mindcontrolled*/
+	private boolean mindcontrolled;
+	
+	/**Determine is Actor is a jedi*/
+	private boolean jedi = false;
 	
 	/**The amount of <code>hitpoints</code> that his actor can have/heal up to. Healing won't give a character more hitpoints than this
-	 *  @author Seolhyun95	
+	 *  @author Daryl Ho	
 	 * */
 	private int maxhitpoints;
 	
@@ -81,11 +89,12 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	 * @see 	#world
 	 * @see 	starwars.actions.Attack
 	 */
-	public SWActor(Team team, int hitpoints, MessageRenderer m, SWWorld world) {
+	public SWActor(Team team, int hitpoints, int forcepoints, MessageRenderer m, SWWorld world) {
 		super(m);
 		actions = new HashSet<SWActionInterface>();
 		this.team = team;
 		this.hitpoints = hitpoints;
+		this.forcepoints = forcepoints;
 		this.world = world;
 		this.symbol = "@";
 		capabilities = new HashSet<Capability>();
@@ -96,10 +105,10 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		
 		//SWActors record the max amount of hitpoints they can have - to prevent "overhealing"
 		// As of now, actors all start at max hp, this is to be changed if something starts at a lower hp
-		// Added by @ Seolhyun95
+		// Added by @ Daryl Ho
 		this.maxhitpoints = hitpoints;
 	}
-	
+
 	/**
 	 * Sets the <code>scheduler</code> of this <code>SWActor</code> to a new <code>Scheduler s</code>
 	 * 
@@ -147,6 +156,67 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	 * 
 	 * @author ram
 	 */
+	
+	/**
+	 * Returns the force points of this <code>SWActor</code>.
+	 * 
+	 * @return 	the force points of this <code>SWActor</code> 
+	 * @see 	#forcepoints
+	 * @see 	#isDead()
+	 */
+	public int getForcepoints() {
+		return forcepoints;
+	}
+	
+	/**
+	 * Sets <code>forcepoints</code> of <code>SWActor</code> to <code>force</code>
+	 * 
+	 * @param 	force the amount of <code>forcepoints</code> to be set
+	 * @pre 	<code>force</code> should not be negative
+	 */
+	public void setForce(int force) {
+		this.forcepoints = force;
+	}
+	
+	/**
+	 *  Returns if this <code>SWActor</code> is mind controlled
+	 * @return boolean
+	 */
+	public boolean isMindControlled() {
+		return mindcontrolled;
+	}
+	
+	/**
+	 * Sets status of mind control of <code>SWActor</code>
+	 * @param set boolean
+	 */
+	public void setMindControl(boolean set) {
+		mindcontrolled = set;
+	}
+	
+	/**
+	 * Sets status of jedi of <code>SWActor</code>
+	 * @param set boolean
+	 */
+	public void setJedi(boolean set) {
+		jedi = set;
+	}
+	
+	/**
+	 * Returns if this <code>SWActor</code> is a jedi
+	 * @return boolean
+	 */
+	public boolean isJedi() {
+		return jedi;
+		
+	}
+	/**
+	 * Returns the world the actor is in
+	 * @return SWWorld actor is in
+	 */
+	public SWWorld getWorld() {
+		return world;
+	}
 	public ArrayList<SWActionInterface> getActions() {
 		ArrayList<SWActionInterface> actionList = super.getActions();
 		
@@ -207,7 +277,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	 * 
 	 * @param 	healing the amount of <code>hitpoints</code> to be increased
 	 * @pre 	<code>healing</code> should not be negative
-	 * @author Seolhyun95
+	 * @author Daryl Ho
 	 */
 	public void healDamage(int healing) {
 		//Precondition 1: Ensure the healing is not negative. Negative healing could decrease the SWActor's hitpoints
