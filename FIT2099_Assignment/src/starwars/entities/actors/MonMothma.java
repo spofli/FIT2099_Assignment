@@ -8,8 +8,6 @@ import starwars.SWWorld;
 import starwars.Team;
 import starwars.actions.MindControl;
 
-
-
 /**
  * MonMothma
  * 

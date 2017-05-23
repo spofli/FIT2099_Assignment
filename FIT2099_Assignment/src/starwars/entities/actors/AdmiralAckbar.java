@@ -52,7 +52,7 @@ public class AdmiralAckbar extends SWLegend {
 		}
 		say(describeLocation());
 		if (Math.random() > 0.9){
-			say(getShortDescription() + "says" + "\"It's a trap!\"");
+			say(getShortDescription() + " says " + "\"It's a trap!\"");
 		}
 	}
 }
