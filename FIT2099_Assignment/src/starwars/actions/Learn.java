@@ -56,7 +56,8 @@ public class Learn extends SWAffordance implements SWActionInterface {
 	public boolean canDo(SWActor a) {
 		AttackInformation attack;
 		attack = AttackNeighbours.attackLocals(a,  a.getWorld(), true, true);
-		return (a.getForcepoints() < 100 && attack == null);
+		SWActor targetActor = (SWActor) attack.entity;
+		return (a.getForcepoints() < 100 && attack == null && (!targetActor.isDead()));
 	}
 	
 	/**
