@@ -56,7 +56,9 @@ public class ForceChoke extends SWAffordance implements SWActionInterface {
 	 */
 	@Override
 	public boolean canDo(SWActor a) {
-		return (a.getForcepoints() >= 100 && a.getTeam() == Team.EVIL);
+		SWEntityInterface target = this.getTarget();
+		SWActor targetActor = (SWActor) target;
+		return (a.getForcepoints() >= 100 && a.getTeam() == Team.EVIL && (!targetActor.isDead()));
 	}
 
 	
@@ -80,12 +82,7 @@ public class ForceChoke extends SWAffordance implements SWActionInterface {
 	@Override
 	public void act(SWActor a) {
 		SWEntityInterface target = this.getTarget();
-		boolean targetIsActor = target instanceof SWActor;
-		SWActor targetActor = null;
-		
-		if (targetIsActor) {
-			targetActor = (SWActor) target;
-		}
+		SWActor targetActor = (SWActor) target;
 				
 		a.say(a.getShortDescription() + " is force choking " + target.getShortDescription() + "!");
 		target.takeDamage(50);
@@ -93,14 +90,13 @@ public class ForceChoke extends SWAffordance implements SWActionInterface {
 		//After the force choke
 		if (targetActor.isDead()) {
 			target.setLongDescription(target.getLongDescription() + ", that was killed by force choke");
-						
-			//remove the Attack affordance of the dead actor so it can no longer be force choked or attacked
-			//remove Attack affordance because force choke depends on Attack affordance
+			
+			//remove the Attack and force choke affordance of the dead actor so it can no longer be force choked or attacked
+			//remove Attack and force choke affordance because force choke depends on Attack affordance
 			for (Affordance affordance : target.getAffordances()) {
 				if (affordance instanceof Attack); {
 					target.removeAffordance(affordance);
 				}
-				
 			}
 		}
 	}
