@@ -29,7 +29,7 @@ import starwars.SWWorld;
 public class SWGridTextInterface implements GridRenderer {
 	
 	/**The grid of the world*/
-	private static SWGrid grid;
+	private static SWWorld world;
 	
 	/**If or not to show the banner*/
 	private static boolean showBanner;
@@ -43,8 +43,8 @@ public class SWGridTextInterface implements GridRenderer {
 	 * @param 	grid the grid of the world
 	 * @pre 	grid should not be null 
 	 */
-	public SWGridTextInterface(SWGrid grid) {
-		SWGridTextInterface.grid = grid;
+	public SWGridTextInterface(SWWorld newWorld) {
+		SWGridTextInterface.world = newWorld;
 		instream = new Scanner(System.in);
 		//set the show banner to true so that the banner would be displayed on the first map render
 		showBanner = true;
@@ -140,6 +140,10 @@ public class SWGridTextInterface implements GridRenderer {
 	
 	@Override
 	public void displayMap() {
+		
+		//set grid to be the current Grid player is in @Daryl Ho
+		SWGrid grid = world.getGrid();
+		
 		
 		//show the banner if it has not been displayed before
 		if (showBanner) {
