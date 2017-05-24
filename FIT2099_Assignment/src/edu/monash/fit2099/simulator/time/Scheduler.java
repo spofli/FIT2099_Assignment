@@ -36,6 +36,38 @@ import edu.monash.fit2099.simulator.space.World;
 public class Scheduler {
 	
 	/**
+	 * If this end string is not null, the game is considered to be over
+	 */
+	private String end = null;
+	
+	/**
+	 * Getter for end
+	 * @return string end
+	 */
+	public String getEnd() {
+		return end;
+	}
+	
+	/**
+	 * Method to end the game. Call this method to end the game.
+	 * Will affect scheduler tick
+	 * 
+	 * @param winorlose should either be string "win" or "lose"
+	 */
+	public void endGame(String winorlose) {
+		end = winorlose;
+	}
+	
+	/**
+	 * Method to check if game is not over
+	 * 
+	 * @return
+	 */
+	public boolean getGameStatus() {
+		return end == null;
+	}
+	
+	/**
 	 * An <code>Event</code> is the execution of a <code>Action</code>, by an <code>Actor</code>, at a point in time.  
 	 * 
 	 * The <code>Actor</code> may be null in the case of simulations that allow the world to change automatically. 
@@ -215,6 +247,10 @@ public class Scheduler {
 		universe.tick();
 		
 		while (!events.isEmpty() && events.peek().getTime() <= now + ticksize) {
+			//stop ticking if game is over
+			if (!getGameStatus()) {
+				break;
+			}
 			//the second condition ensures that an event that should happen in the future doesn't execute now
 								
 			//get the event at the head of the queue
