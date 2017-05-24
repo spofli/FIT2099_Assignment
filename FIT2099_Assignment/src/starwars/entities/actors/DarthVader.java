@@ -6,7 +6,6 @@ import edu.monash.fit2099.gridworld.Grid;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWActor;
-import starwars.SWAffordance;
 import starwars.SWLegend;
 import starwars.SWLocation;
 import starwars.SWWorld;
@@ -18,7 +17,6 @@ import starwars.entities.actors.behaviors.AttackInformation;
 import starwars.entities.actors.behaviors.AttackNeighbours;
 import starwars.entities.actors.behaviors.ForceChokeNeighbours;
 import starwars.entities.actors.behaviors.TurnLukeDark;
-import starwars.actions.Learn;
 
 /**
  * Darth Vader.  
@@ -41,8 +39,6 @@ public class DarthVader extends SWLegend {
 		this.setLongDescription("Darth Vader, is your father");
 		LightSaber vadersweapon = new LightSaber(m);
 		setItemCarried(vadersweapon);
-		SWAffordance learn = new Learn(this,messageRenderer);
-		this.addAffordance(learn);
 	}
 
 	public static DarthVader getDarthVader(MessageRenderer m, SWWorld world) {
