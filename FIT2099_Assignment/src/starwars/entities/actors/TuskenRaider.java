@@ -6,11 +6,9 @@ import edu.monash.fit2099.gridworld.Grid;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWActor;
-import starwars.SWAffordance;
 import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
-import starwars.actions.MindControl;
 import starwars.actions.Move;
 import starwars.entities.GaderffiiStick;
 import starwars.entities.actors.behaviors.AttackInformation;
@@ -47,8 +45,6 @@ public class TuskenRaider extends SWActor {
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		setItemCarried(new GaderffiiStick(m));
-		SWAffordance mindcontrol = new MindControl(this,m);
-		this.addAffordance(mindcontrol);
 	}
 
 	@Override

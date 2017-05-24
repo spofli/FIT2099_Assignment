@@ -25,7 +25,10 @@ import edu.monash.fit2099.simulator.space.Location;
 import edu.monash.fit2099.simulator.time.Scheduler;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.actions.Attack;
+import starwars.actions.ForceChoke;
+import starwars.actions.MindControl;
 import starwars.actions.Move;
+import starwars.entities.actors.Droid;
 
 public abstract class SWActor extends Actor<SWActionInterface> implements SWEntityInterface {
 	
@@ -102,6 +105,14 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		//SWActors are given the Attack affordance hence they can be attacked
 		SWAffordance attack = new Attack(this, m);
 		this.addAffordance(attack);
+		
+		//SWActors are given the MindControl affordance hence they can be attacked
+		if (!(this instanceof Droid)) {
+			SWAffordance forcechoke = new ForceChoke(this,m);
+			this.addAffordance(forcechoke);
+			SWAffordance mindcontrol = new MindControl(this,m);
+			this.addAffordance(mindcontrol);
+		}
 		
 		//SWActors record the max amount of hitpoints they can have - to prevent "overhealing"
 		// As of now, actors all start at max hp, this is to be changed if something starts at a lower hp

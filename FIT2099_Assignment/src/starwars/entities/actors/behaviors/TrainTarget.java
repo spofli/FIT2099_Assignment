@@ -40,6 +40,6 @@ public class TrainTarget {
 				}
 			}
 		}
-		return a;
+		return null;
 	}
 }

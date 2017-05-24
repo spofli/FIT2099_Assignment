@@ -6,12 +6,10 @@ import edu.monash.fit2099.gridworld.Grid;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWActor;
-import starwars.SWAffordance;
 import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
 import starwars.actions.CallBackup;
-import starwars.actions.MindControl;
 import starwars.actions.Move;
 import starwars.entities.Blaster;
 import starwars.entities.actors.behaviors.AttackInformation;
@@ -20,7 +18,6 @@ import starwars.entities.actors.behaviors.MindControlled;
 
 public class Stormtrooper extends SWActor {
 
-	private String name;
 
 	/**
 	 * Create a Stormtrooper. Stormtroopers will randomly wander
@@ -42,13 +39,10 @@ public class Stormtrooper extends SWActor {
 	 *            <code>Stormtrooper</code> belongs to
 	 * 
 	 */
-	public Stormtrooper(int hitpoints, int forcepoints, String name, MessageRenderer m, SWWorld world) {
+	public Stormtrooper(int hitpoints, int forcepoints, MessageRenderer m, SWWorld world) {
 		super(Team.EVIL, hitpoints, forcepoints, m, world);
 		// TODO Auto-generated constructor stub
-		this.name = name;
 		setItemCarried(new Blaster(m));
-		SWAffordance mindcontrol = new MindControl(this,m);
-		this.addAffordance(mindcontrol);
 	}
 
 	@Override
@@ -101,7 +95,7 @@ public class Stormtrooper extends SWActor {
 
 	@Override
 	public String getShortDescription() {
-		return name + " the Stormtrooper";
+		return "A Stormtrooper";
 	}
 
 	@Override

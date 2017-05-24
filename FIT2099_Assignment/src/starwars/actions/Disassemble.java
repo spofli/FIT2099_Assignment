@@ -11,6 +11,7 @@ import starwars.SWEntityInterface;
 import starwars.SWLocation;
 import starwars.entities.DroidParts;
 import starwars.entities.actors.Droid;
+import starwars.entities.actors.R2D2;
 
 /**
  * An Affordance for disassembling a disabled Droid.
@@ -61,6 +62,10 @@ public class Disassemble extends SWAffordance implements SWActionInterface {
 		Droid droid = (Droid) target;
 		SWAction.getEntitymanager().remove(droid);
 		
+		if (droid instanceof R2D2) { //lose game if R2D2 is disassembled
+			((R2D2)droid).r2isDisassembled();
+		}
+		
 		// Creates droidparts at the location
 		DroidParts droidparts = new DroidParts(this.messageRenderer);
 		EntityManager<SWEntityInterface, SWLocation> entityManager = SWAction.getEntitymanager();
@@ -75,4 +80,3 @@ public class Disassemble extends SWAffordance implements SWActionInterface {
 		return "disassemble  " + target.getShortDescription();
 	}
 }
-

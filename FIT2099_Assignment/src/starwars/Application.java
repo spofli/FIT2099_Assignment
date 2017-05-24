@@ -35,6 +35,10 @@ public class Application {
 		while(true) {
 			uiController.render();
 			theScheduler.tick();
+			if (!theScheduler.getGameStatus()) {
+				System.out.println(theScheduler.getEnd());
+				break;
+			}
 		}
 		
 		

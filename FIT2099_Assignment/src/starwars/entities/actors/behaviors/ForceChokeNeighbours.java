@@ -9,8 +9,7 @@ import starwars.SWActor;
 import starwars.SWEntityInterface;
 import starwars.SWLocation;
 import starwars.SWWorld;
-import starwars.actions.Attack;
-import starwars.entities.actors.Droid;
+import starwars.actions.ForceChoke;
 
 /**
  * Behavior for <code>DarthVader</code> to force choke other <code>SWActors</code>
@@ -20,20 +19,20 @@ import starwars.entities.actors.Droid;
  *
  */
 public class ForceChokeNeighbours {
-	public static SWActor chokeLocals(SWActor actor, SWWorld world) {
+	public static AttackInformation chokeLocals(SWActor actor, SWWorld world) {
 		SWLocation location = world.getEntityManager().whereIs(actor);
 		EntityManager<SWEntityInterface, SWLocation> em = world.getEntityManager();
 		List<SWEntityInterface> entities = em.contents(location);
 
 		// select the attackable things that are here that are not droids
 
-		ArrayList<SWActor> canbechoked = new ArrayList<SWActor>();
+		ArrayList<AttackInformation> canbechoked = new ArrayList<AttackInformation>();
 		for (SWEntityInterface e : entities) {
 			// Figure out if we should be using force choke
 			if (e != actor && e instanceof SWActor) {
 				for (Affordance a : e.getAffordances()) {
-					if ((a instanceof Attack) && !(e instanceof Droid)) {
-						canbechoked.add((SWActor) e);
+					if (a instanceof ForceChoke) {
+						canbechoked.add(new AttackInformation(e, a));
 						break;
 					}
 				}

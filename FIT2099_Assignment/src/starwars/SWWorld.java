@@ -271,7 +271,7 @@ public class SWWorld extends World {
 		aberu.setSymbol("U");
 		loc = myGrid.getLocationByCoordinates(9, 4);
 		entityManager.setLocation(aberu, loc);
-
+		
 	}	
 
 	/*
@@ -351,5 +351,9 @@ public class SWWorld extends World {
 	 */
 	public static EntityManager<SWEntityInterface, SWLocation> getEntitymanager() {
 		return entityManager;
+	}
+
+	public static void addActor(SWActor a, SWLocation loc) {
+	entityManager.setLocation(a, loc);
 	}
 }

@@ -3,11 +3,9 @@ package starwars.entities.actors;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWActor;
-import starwars.SWAffordance;
 import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
-import starwars.actions.MindControl;
 import starwars.actions.Move;
 import starwars.entities.actors.behaviors.MindControlled;
 
@@ -39,8 +37,6 @@ public class Dummy extends SWActor {
 		super(Team.GOOD, hitpoints, forcepoints, m, world);
 		// TODO Auto-generated constructor stub
 		this.name = name;
-		SWAffordance mindcontrol = new MindControl(this,m);
-		this.addAffordance(mindcontrol);
 	}
 
 	@Override

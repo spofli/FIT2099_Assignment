@@ -40,7 +40,7 @@ public class TurnDark extends SWAffordance implements SWActionInterface {
 		SWActor targetActor = (SWActor) target;
 		
 		if (targetActor.getForcepoints() >= 100 && Math.random() >= 0.25) {
-			target.say("Nice try " + a.getShortDescription());
+			target.say(target.getShortDescription() + "says: Nice try " + a.getShortDescription());
 		}
 		else {
 			a.say(a.getShortDescription() + " has turned " + target.getShortDescription() + " to the Dark Side");

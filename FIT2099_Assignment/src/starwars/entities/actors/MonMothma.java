@@ -1,12 +1,10 @@
 package starwars.entities.actors;
 
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
-import starwars.SWAffordance;
 import starwars.SWLegend;
 import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
-import starwars.actions.MindControl;
 
 /**
  * MonMothma
@@ -29,8 +27,6 @@ public class MonMothma extends SWLegend {
 		super(Team.GOOD, 200, 1, m, world);
 		this.setShortDescription("Mon Mothma");
 		this.setLongDescription("Mon Mothma, a prominent figure for the Rebel Alliance");
-		SWAffordance mindcontrol = new MindControl(this,m);
-		this.addAffordance(mindcontrol);
 	}
 
 	public static MonMothma getMonMothma(MessageRenderer m, SWWorld world) {

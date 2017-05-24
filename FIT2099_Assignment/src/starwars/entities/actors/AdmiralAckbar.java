@@ -1,12 +1,10 @@
 package starwars.entities.actors;
 
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
-import starwars.SWAffordance;
 import starwars.SWLegend;
 import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
-import starwars.actions.MindControl;
 
 /**
  * Admiral Ackbar
@@ -29,8 +27,6 @@ public class AdmiralAckbar extends SWLegend {
 		super(Team.GOOD, 200, 1, m, world);
 		this.setShortDescription("Admiral Ackbar");
 		this.setLongDescription("Admiral Ackbar, the Mon Calamari military commander of the rebel alliance");
-		SWAffordance mindcontrol = new MindControl(this,m);
-		this.addAffordance(mindcontrol);
 	}
 
 	public static AdmiralAckbar getAdmiralAckbar(MessageRenderer m, SWWorld world) {

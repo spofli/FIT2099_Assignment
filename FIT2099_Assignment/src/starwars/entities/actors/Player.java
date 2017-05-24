@@ -44,6 +44,7 @@ public class Player extends SWActor {
 	public Player(Team team, int hitpoints, int forcepoints, MessageRenderer m, SWWorld world) {
 		super(team, hitpoints, forcepoints, m, world);
 		humanControlled = true; // this feels like a hack. Surely this should be dynamic
+		setJedi(true);
 		
 		// Luke can repair droids and disassemble them
 		capabilities.add(Capability.MECHANIC);
@@ -59,7 +60,11 @@ public class Player extends SWActor {
 	 * @see {@link starwars.swinterfaces.SWGridController}
 	 */
 	@Override
-	public void act() {	
+	public void act() {
+		if (isDead() || getTeam() == Team.EVIL) {
+			scheduler.endGame("LOSE");
+			return;
+		}
 		describeScene();
 		scheduler.schedule(SWGridController.getUserDecision(this), this, 1);
 		

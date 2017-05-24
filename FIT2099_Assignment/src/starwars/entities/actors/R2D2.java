@@ -32,6 +32,10 @@ import starwars.entities.actors.behaviors.AttackNeighbours;
  */
 public class R2D2 extends Droid {
 	
+	public void r2isDisassembled() {
+		scheduler.endGame("LOSE");
+	}
+	
 	private Patrol path;
 	
 	/**

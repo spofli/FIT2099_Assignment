@@ -6,6 +6,7 @@ import starwars.SWActionInterface;
 import starwars.SWActor;
 import starwars.SWAffordance;
 import starwars.SWEntityInterface;
+import starwars.Team;
 
 public class ForceChoke extends SWAffordance implements SWActionInterface {
 
@@ -55,7 +56,7 @@ public class ForceChoke extends SWAffordance implements SWActionInterface {
 	 */
 	@Override
 	public boolean canDo(SWActor a) {
-		return true;
+		return (a.getForcepoints() >= 100 && a.getTeam() == Team.EVIL);
 	}
 
 	
@@ -86,7 +87,7 @@ public class ForceChoke extends SWAffordance implements SWActionInterface {
 			targetActor = (SWActor) target;
 		}
 				
-		a.say(a.getShortDescription() + " is force chokeing " + target.getShortDescription() + "!");
+		a.say(a.getShortDescription() + " is force choking " + target.getShortDescription() + "!");
 		target.takeDamage(50);
 			
 		//After the force choke
