@@ -3,6 +3,7 @@ package starwars.entities.actors;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWActor;
+import starwars.SWAffordance;
 import starwars.SWLegend;
 import starwars.SWLocation;
 import starwars.SWWorld;
@@ -12,6 +13,7 @@ import starwars.entities.actors.behaviors.AttackInformation;
 import starwars.entities.actors.behaviors.AttackNeighbours;
 import starwars.entities.actors.behaviors.CheckLuke;
 import starwars.entities.actors.behaviors.Follow;
+import starwars.actions.MindControl;
 
 /**
  * Princess Leia Organa 
@@ -29,6 +31,8 @@ public class LeiaOrgana extends SWLegend {
 		super(Team.GOOD, 200, 51, m, world);
 		this.setShortDescription("Princess Leia");
 		this.setLongDescription("Leia Organa, rebel princess");
+		SWAffordance mindcontrol = new MindControl(this,m);
+		this.addAffordance(mindcontrol);
 		this.luke = null;
 	}
 
@@ -47,13 +51,19 @@ public class LeiaOrgana extends SWLegend {
 		// If Luke rescues Leia, set Luke to the SWActor instance of Luke instead of null
 		leia.luke = lukeSkywalker;
 	}
-	
+	/**
+	 * Function checks if Leia has been rescued by Luke
+	 * 
+	 * @return true/false if Leia is already rescued
+	 */
+	public boolean rescued() {
+		return luke != null;
+	}
 	
 	@Override
 	protected void legendAct() {
 		
 		if(isDead()) {
-			scheduler.endGame("LOSE");
 			return;
 		}
 		// If Leia has been rescued (player moves to her location)
