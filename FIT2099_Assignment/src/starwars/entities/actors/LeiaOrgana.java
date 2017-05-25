@@ -69,15 +69,7 @@ public class LeiaOrgana extends SWLegend {
 			
 			say(describeLocation());
 			
-			// Attacking takes precedence over following luke
-			// Can be changed easily by reordering this block and the one below (*)
-			AttackInformation attack = AttackNeighbours.attackLocals(leia, leia.world, true, true);
-			if (attack != null) {
-				say(getShortDescription() + " has attacked " + attack.entity.getShortDescription());
-				scheduler.schedule(attack.affordance, leia, 1);
-				return;
-			}	
-			// (*) Nothing to attack, follow Luke 
+			// Follow luke has higher priority than attack
 			Direction direction = Follow.followOwner(luke, leia, world);
 			if (direction != null) {
 				say(getShortDescription() + " follows " + luke.getShortDescription());
@@ -85,6 +77,13 @@ public class LeiaOrgana extends SWLegend {
 				scheduler.schedule(myMove, leia, 1);
 				return;
 			}
+			AttackInformation attack = AttackNeighbours.attackLocals(leia, leia.world, true, true);
+			if (attack != null) {
+				say(getShortDescription() + " has attacked " + attack.entity.getShortDescription());
+				scheduler.schedule(attack.affordance, leia, 1);
+				return;
+			}	
+			
 		}
 		// Still imprisoned
 		else {

@@ -55,20 +55,19 @@ public class C3P0 extends Droid {
 		
 		// If C3P0 has an owner, follow it
 		if (owner != null) {
-			// Attacking takes precedence over following the owner 
-			AttackInformation attack = AttackNeighbours.attackLocals(this, this.world, true, true);
-			if (attack != null) {
-				say(getShortDescription() + " has attacked " + attack.entity.getShortDescription());
-				scheduler.schedule(attack.affordance, this, 1);
-				return;
-		}
-			// If nothing to attack:
+			// Following owner takes precedence over attacking 
 			Direction direction = Follow.followOwner(owner, this, world);
 			if (direction != null) {
 				say(getShortDescription() + " follows " + owner.getShortDescription());
 				Move myMove = new Move(direction, messageRenderer, world);
 				scheduler.schedule(myMove, this, 1);
 				TerrainDamage.BadlandsDroid(this, world);
+				return;
+			}
+			AttackInformation attack = AttackNeighbours.attackLocals(this, this.world, true, true);
+			if (attack != null) {
+				say(getShortDescription() + " has attacked " + attack.entity.getShortDescription());
+				scheduler.schedule(attack.affordance, this, 1);
 				return;
 			}
 		}

@@ -99,7 +99,7 @@ public class MonMothma extends SWLegend {
 				return true;
 			}
 			else {
-				say("What are you doing here, farmboy? Bring us General Organa and the plans!");
+				say(this.getShortDescription() + "says: What are you doing here, farmboy? Bring us General Organa and the plans!");
 				return true;
 			}
 		}
