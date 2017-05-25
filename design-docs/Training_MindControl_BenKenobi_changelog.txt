@@ -6,8 +6,12 @@ Determining if Actor has enough force to perform actions that require force done
 
 NPC Actors not able to mind control YET.
 
-Training now exclusive to Player (Receiving training from Ben).
+Training now exclusive to Player(or any SWActor that is a jedi)
+Only ben has learn affordance
 
-Mind control now works by setting boolean in SWActor to true
+Mind control now works by setting a boolean in SWActor to true
 Behavior to prompt user to select direction added
+
+All SWActors except droids have mindcontrol affordance
+
 
