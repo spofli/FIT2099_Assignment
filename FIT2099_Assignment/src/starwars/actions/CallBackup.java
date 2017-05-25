@@ -33,7 +33,7 @@ public class CallBackup extends SWAction {
 		SWLocation location = a.getWorld().getEntityManager().whereIs(a);
 		Stormtrooper backup = new Stormtrooper(100, 20, messageRenderer, a.getWorld());
 		backup.setSymbol("S");
-		SWWorld.addActor(backup, location);
+		SWAction.getEntitymanager().setLocation(backup, location);
 	}
 		// TODO Auto-generated method stub
 		
