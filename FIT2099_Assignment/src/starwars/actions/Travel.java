@@ -20,10 +20,9 @@ import starwars.entities.actors.LeiaOrgana;
 import starwars.entities.actors.Player;
 
 /**
- * An Affordance for flying to the DeathStar
+ * An Affordance for Traveling
  * 
- * The affordance is offered by the Millennium Falcons on the Rebel Base and Tatooine
- * <code>RebelFalcon</code> and <code>TatooineFalcon</code>
+ * The affordance is offered by the <code>Millennium Falcon</code>
  *
  * Teleports Luke and his party to the Millennium Falcon on the other maps
  *
