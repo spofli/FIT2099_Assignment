@@ -16,16 +16,27 @@ import edu.monash.fit2099.simulator.space.LocationMaker;
  * 				and this resulted in a simpler SWGrid class (asel) 
  */
 public class SWGrid extends Grid<SWLocation> {
+	
+	/**
+	 * Name of the grid
+	 */
+	String gridName;
 
 	/**
 	 * The constructor of the <code>SWGrid</code>. 
 	 * Will create a 10 by 10 grid with 100 <code>SWLocation</code>s
+	 * @param j 
+	 * @param i 
 	 * 
 	 * @param factory the maker of the <code>SWLocation</code>s
 	 */
-	public SWGrid(LocationMaker<SWLocation> factory) {
-		super(10,10,factory);
+	public SWGrid(int height, int width, String name, LocationMaker<SWLocation> factory) {
+		super(height,width,factory);
+		gridName = name;
 	}
 	
+	public String getGridName() {
+		return gridName;
+	}
 
 }

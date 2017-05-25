@@ -28,8 +28,10 @@ public class Application {
 		Scheduler theScheduler = new Scheduler(1, world);
 		SWActor.setScheduler(theScheduler);
 		
-		// set up the world
-		world.initializeWorld(uiController);
+		// set up the worlds
+		world.initializeTatooine(uiController);
+		world.initializeRebelBase(uiController);
+		world.initializeDeathStar(uiController);
 	
 		// kick off the scheduler
 		while(true) {

@@ -47,13 +47,13 @@ public class SWWorld extends World {
 		
 		// Initialise all grids and place in an ArrayList
 		// currentGrid will change depending on where the player is on
- 		SWGrid tatooineGrid = new SWGrid(10, 10, factory);
+ 		SWGrid tatooineGrid = new SWGrid(10, 10, "Tatooine", factory);
 		worldGrids.add(tatooineGrid);
 		
-		SWGrid rebelGrid = new SWGrid(2, 2, factory);
+		SWGrid rebelGrid = new SWGrid(2, 2, "Rebel Base", factory);
 		worldGrids.add(rebelGrid);
 		
-		SWGrid deathStarGrid = new SWGrid(10, 10, factory);
+		SWGrid deathStarGrid = new SWGrid(10, 10, "Death Star", factory);
 		worldGrids.add(deathStarGrid);
 		
 		// Start with Tatooine : position 0 in the array
@@ -139,11 +139,15 @@ public class SWWorld extends World {
 		loc = tatooineGrid.getLocationByCoordinates(5,9);
 		entityManager.setLocation(luke, loc);
 		luke.resetMoveCommands(loc);
-		
+	
+		//TatooineFalcon falcon = new TatooineFalcon(iface);
+		//loc = tatooineGrid.getLocationByCoordinates(4, 9);
+		//entityManager.setLocation(falcon,  loc);
+
 		// Millennium Falcon
-		TatooineFalcon falcon = new TatooineFalcon(iface);
-		loc = tatooineGrid.getLocationByCoordinates(4, 9);
-		entityManager.setLocation(falcon,  loc);
+		MillenniumFalcon Tfalcon = new MillenniumFalcon(iface);
+		loc = tatooineGrid.getLocationByCoordinates(0, 0);
+		entityManager.setLocation(Tfalcon, loc);
 		
 		// Beggar's Canyon 
 		for (int col = 3; col < 8; col++) {
@@ -299,7 +303,7 @@ public class SWWorld extends World {
 		aberu.setSymbol("U");
 		loc = tatooineGrid.getLocationByCoordinates(9, 4);
 		entityManager.setLocation(aberu, loc);
-	
+
 	}	
 	/**
 	 * Sets up the Rebel Base, setting descriptions for locations and placing items and actors
@@ -325,10 +329,15 @@ public class SWWorld extends World {
 				loc.setSymbol('.');				
 			}
 		}
+		
+		//RebelFalcon falcon = new RebelFalcon(iface);
+		//loc = rebelGrid.getLocationByCoordinates(0, 0);
+		//entityManager.setLocation(falcon,  loc);
+
 		// Millenium Falcon
-		RebelFalcon falcon = new RebelFalcon(iface);
+		MillenniumFalcon RBfalcon = new MillenniumFalcon(iface);
 		loc = rebelGrid.getLocationByCoordinates(0, 0);
-		entityManager.setLocation(falcon,  loc);
+		entityManager.setLocation(RBfalcon, loc);
 		
 		//Admiral Ackbar
 		AdmiralAckbar ackbar = AdmiralAckbar.getAdmiralAckbar(iface, this);
@@ -365,16 +374,52 @@ public class SWWorld extends World {
 				loc.setSymbol('.');				
 			}
 		}
+		
+		//DeathStarFalcon falcon = new DeathStarFalcon(iface);
+		//loc = deathStarGrid.getLocationByCoordinates(0, 0);
+		//entityManager.setLocation(falcon,  loc);
+		
 		// Millenium Falcon
-		DeathStarFalcon falcon = new DeathStarFalcon(iface);
+		MillenniumFalcon DSfalcon = new MillenniumFalcon(iface);
 		loc = deathStarGrid.getLocationByCoordinates(0, 0);
-		entityManager.setLocation(falcon,  loc);
+		entityManager.setLocation(DSfalcon, loc);
 		
 		//Princess Leia
 		LeiaOrgana leia = LeiaOrgana.getLeiaOrgana(iface, this);
 		leia.setSymbol("L");
 		loc = deathStarGrid.getLocationByCoordinates(9, 9);
 		entityManager.setLocation(leia, loc);
+		
+		DarthVader vader = DarthVader.getDarthVader(iface, this);
+		vader.setSymbol("V");
+		loc = deathStarGrid.getLocationByCoordinates(5,  5);
+		entityManager.setLocation(vader, loc);
+
+		
+		Stormtrooper storm = new Stormtrooper(100, 20, iface, this);
+		storm.setSymbol("S");
+		loc = deathStarGrid.getLocationByCoordinates(6, 6);
+		entityManager.setLocation(storm, loc);
+		
+		Stormtrooper storm2 = new Stormtrooper(100, 20, iface, this);
+		storm2.setSymbol("S");
+		loc = deathStarGrid.getLocationByCoordinates(6, 5);
+		entityManager.setLocation(storm2, loc);
+		
+		Stormtrooper storm3 = new Stormtrooper(100, 20, iface, this);
+		storm3.setSymbol("S");
+		loc = deathStarGrid.getLocationByCoordinates(6, 4);
+		entityManager.setLocation(storm3, loc);
+		
+		Stormtrooper storm4 = new Stormtrooper(100, 20, iface, this);
+		storm4.setSymbol("S");
+		loc = deathStarGrid.getLocationByCoordinates(4, 6);
+		entityManager.setLocation(storm4, loc);
+		
+		Stormtrooper storm5 = new Stormtrooper(100, 20, iface, this);
+		storm5.setSymbol("S");
+		loc = deathStarGrid.getLocationByCoordinates(4, 4);
+		entityManager.setLocation(storm5, loc);
 		
 	}
 
@@ -472,6 +517,11 @@ public class SWWorld extends World {
 	 */
 	public void setCurrentGrid(int newCurrent) {
 		currentGrid = newCurrent;
+	}
+
+	public static void addActor(SWActor actor, SWLocation location) {
+		// TODO Auto-generated method stub
+		entityManager.setLocation(actor, location);
 	}
 }
 
