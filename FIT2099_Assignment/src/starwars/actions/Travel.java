@@ -125,7 +125,8 @@ public class Travel extends SWAffordance implements SWActionInterface {
 			}
 		}
 		// Teleport Actor to location, done after checking neighbours in old location!
-		entityManager.setLocation(a, falconLocation);			
+		entityManager.setLocation(a, falconLocation);
+		a.resetMoveCommands(falconLocation);
 		a.say(a.getShortDescription() + " has flown to the " + grids.get(selection).getGridName());
 	}
 	public void teleportTeam(List<SWEntityInterface> entityList) {
