@@ -91,10 +91,10 @@ public class ForceChoke extends SWAffordance implements SWActionInterface {
 		if (targetActor.isDead()) {
 			target.setLongDescription(target.getLongDescription() + ", that was killed by force choke");
 			
-			//remove the Attack and force choke affordance of the dead actor so it can no longer be force choked or attacked
-			//remove Attack and force choke affordance because force choke depends on Attack affordance
+			//remove the Attack and learn affordance of the dead actor so it can no longer be attacked or learnt from
+			//forcechoke canDo() ensures that target is alive so no need to remove forcechooke affordance of dead actor
 			for (Affordance affordance : target.getAffordances()) {
-				if (affordance instanceof Attack); {
+				if (affordance instanceof Attack || affordance instanceof Learn); {
 					target.removeAffordance(affordance);
 				}
 			}

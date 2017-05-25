@@ -1,5 +1,6 @@
 package starwars.actions;
 
+import edu.monash.fit2099.simulator.matter.Affordance;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.Capability;
 import starwars.SWActionInterface;
@@ -150,6 +151,12 @@ public class Attack extends SWAffordance implements SWActionInterface {
 				
 				//remove the attack affordance of the dead actor so it can no longer be attacked
 				a.removeAffordance(this);
+				//remove the Learn affordance of the dead actor so it can no longer be learnt from
+				for (Affordance affordance : target.getAffordances()) {
+					if (affordance instanceof Learn); {
+						target.removeAffordance(affordance);
+					}
+				}
 				
 				
 			}
