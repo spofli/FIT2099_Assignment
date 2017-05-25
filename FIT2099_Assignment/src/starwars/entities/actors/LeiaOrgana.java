@@ -3,7 +3,6 @@ package starwars.entities.actors;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWActor;
-import starwars.SWAffordance;
 import starwars.SWLegend;
 import starwars.SWLocation;
 import starwars.SWWorld;
@@ -13,7 +12,6 @@ import starwars.entities.actors.behaviors.AttackInformation;
 import starwars.entities.actors.behaviors.AttackNeighbours;
 import starwars.entities.actors.behaviors.CheckLuke;
 import starwars.entities.actors.behaviors.Follow;
-import starwars.actions.MindControl;
 
 /**
  * Princess Leia Organa 
@@ -62,6 +60,7 @@ public class LeiaOrgana extends SWLegend {
 	protected void legendAct() {
 		
 		if(isDead()) {
+			scheduler.endGame("LOSE");
 			return;
 		}
 		// If Leia has been rescued (player moves to her location)

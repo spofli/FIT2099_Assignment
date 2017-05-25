@@ -1,7 +1,12 @@
 package starwars.entities.actors;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.monash.fit2099.gridworld.Grid;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
+import starwars.SWEntityInterface;
 import starwars.SWLegend;
 import starwars.SWLocation;
 import starwars.SWWorld;
@@ -24,7 +29,9 @@ import starwars.entities.actors.behaviors.MindControlled;
  */
 public class MonMothma extends SWLegend {
 
-	private static MonMothma mothma = null; 
+	private static MonMothma mothma = null;
+	
+	private boolean checkedforluke = false;
 	
 	private MonMothma(MessageRenderer m, SWWorld world) {
 		super(Team.GOOD, 200, 1, m, world);
@@ -43,9 +50,60 @@ public class MonMothma extends SWLegend {
 		return this.getShortDescription() + " [" + this.getHitpoints() + "] is at " + location.getShortDescription();
 	}
 	
-	private void sayFarmboy(){
-	// Function to say her line, triggered when Luke TRAVELS to Rebel HQ without the right team
-		say("What are you doing here, farmboy? Bring us General Organa and the plans!");
+	/**
+	 * Method to check for Luke and his team. Mon Mothma will only say farmboy line the first time she sees Luke.
+	 * Or when Luke goes away and comes back.
+	 * @param checked check if Mon Mothma already saw Luke
+	 * @return boolean true if luke is around, false otherwise
+	 */
+	private boolean seesLuke(boolean checked) {
+		boolean luke = false;
+		boolean r2 = false;
+		boolean leia = false;
+		
+		ArrayList<Direction> possibledirections = new ArrayList<Direction>();
+
+		// build a list of available directions
+		for (Grid.CompassBearing d : Grid.CompassBearing.values()) {
+			if (SWWorld.getEntitymanager().seesExit(this, d)) {
+				possibledirections.add(d);
+			}
+		}
+
+		for (Direction d : possibledirections) {
+			SWLocation neighbourLoc = (SWLocation) SWWorld.getEntitymanager().whereIs(this).getNeighbour(d);
+			List<SWEntityInterface> entities = SWWorld.getEntitymanager().contents(neighbourLoc);
+			if (entities != null) {
+				for (SWEntityInterface e : entities) {
+					if (e instanceof Player) {
+						luke = true;
+					}
+					if (e instanceof R2D2) {
+						r2 = true;
+					}
+					if (e instanceof LeiaOrgana) {
+						leia = true;
+					}
+				}
+			}
+		}
+		if (checked && luke) {
+			return true;
+		}
+		else if (checked && !luke) {
+			return false;
+		}
+		if (luke) {
+			if (r2 && leia) {
+				scheduler.endGame("WIN");
+				return true;
+			}
+			else {
+				say("What are you doing here, farmboy? Bring us General Organa and the plans!");
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override
@@ -61,6 +119,8 @@ public class MonMothma extends SWLegend {
 			say(this.getShortDescription() + " feels like moving " + direction);
 			scheduler.schedule(myMove, this, 1);
 		}
+		// Look at surroundings for Luke
+		checkedforluke = seesLuke(checkedforluke);
 	}
 }
 
