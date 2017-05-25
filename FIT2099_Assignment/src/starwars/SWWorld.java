@@ -518,10 +518,5 @@ public class SWWorld extends World {
 	public void setCurrentGrid(int newCurrent) {
 		currentGrid = newCurrent;
 	}
-
-	public static void addActor(SWActor actor, SWLocation location) {
-		// TODO Auto-generated method stub
-		entityManager.setLocation(actor, location);
-	}
 }
 
