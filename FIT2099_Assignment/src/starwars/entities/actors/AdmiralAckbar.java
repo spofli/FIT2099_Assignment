@@ -1,10 +1,13 @@
 package starwars.entities.actors;
 
+import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWLegend;
 import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
+import starwars.actions.Move;
+import starwars.entities.actors.behaviors.MindControlled;
 
 /**
  * Admiral Ackbar
@@ -47,6 +50,12 @@ public class AdmiralAckbar extends SWLegend {
 			return;
 		}
 		say(describeLocation());
+		if (this.isMindControlled()) {
+			Direction direction = MindControlled.getDirection(this);
+			Move myMove = new Move(direction, messageRenderer, world);
+			say(this.getShortDescription() + " feels like moving " + direction);
+			scheduler.schedule(myMove, this, 1);
+		}
 		if (Math.random() > 0.9){
 			say(getShortDescription() + " says " + "\"It's a trap!\"");
 		}

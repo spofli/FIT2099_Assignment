@@ -31,8 +31,6 @@ public class LeiaOrgana extends SWLegend {
 		super(Team.GOOD, 200, 51, m, world);
 		this.setShortDescription("Princess Leia");
 		this.setLongDescription("Leia Organa, rebel princess");
-		SWAffordance mindcontrol = new MindControl(this,m);
-		this.addAffordance(mindcontrol);
 		this.luke = null;
 	}
 
