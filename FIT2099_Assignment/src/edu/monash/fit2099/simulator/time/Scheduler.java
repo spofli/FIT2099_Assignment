@@ -52,7 +52,7 @@ public class Scheduler {
 	 * Method to end the game. Call this method to end the game.
 	 * Will affect scheduler tick
 	 * 
-	 * @param winorlose should either be string "win" or "lose"
+	 * @param winorlose should be a string describing the end game scenario and whether the user won or lost
 	 */
 	public void endGame(String winorlose) {
 		end = winorlose;
