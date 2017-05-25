@@ -1,0 +1,15 @@
+DarthVader was created as an SWLegend as there can only be one DarthVader.
+DarthVaders act() consists of:
+(50%)try to forechoke -> (50%)try to convert luke -> try to attack -> move
+
+Forcechoke was implemented as an action so that it can be scheduled by DarthVader
+Checking for targets to force choke was implemented the same way checking for targets to attack was implemented(adding behaviors). The only difference is that instead of checking for attack affordance, it checks for forcechoke affordance.
+Converting luke was implemented as an action so that it can be scheduled by DarthVader
+Checking for targets to convert(luke) was done by using a behavior that checks the cell for Luke.
+
+Forechoke action is basically an attack action that has minimal checks and fixed 50 damage.
+Forcechoke canDo() ensures that user is Team.EVIL and has maximum force
+
+Converting luke action simply does a change to luke's team if luke's force is below a certain level or has 25% chance of changing if luke has enough forcelevel
+
+The specified UMLs in UML PNGS folder show the class relations

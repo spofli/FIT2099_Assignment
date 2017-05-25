@@ -1,0 +1,10 @@
+Stormtroopers are nameless SWActors
+Stormtroopers act()consist of:
+(25%)try to attack (75% chance to fail) -> (5%) try to call for backup -> move
+Stormtroopers can be mindcontrolled as they are weak minded
+
+Calling for backup was implemented as an action so that Stormtroopers can schedule it.
+A new function is made in SWWorld so to complement the CallBackup action.
+The callbackup action creates a new stormtrooper and calls the function in SWWorld to access the SWEntitiy manager and place it into the world.
+
+The specified UMLs in UML PNGS folder show the class relations
