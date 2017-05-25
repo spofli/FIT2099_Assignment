@@ -1,5 +1,7 @@
 package starwars;
 
+import java.util.ArrayList;
+
 import edu.monash.fit2099.gridworld.Grid.CompassBearing;
 import edu.monash.fit2099.simulator.matter.EntityManager;
 import edu.monash.fit2099.simulator.space.Direction;
@@ -24,22 +26,38 @@ import starwars.entities.actors.*;
 public class SWWorld extends World {
 	
 	/**
-	 * <code>SWGrid</code> of this <code>SWWorld</code>
+	 * <code>SWGrids</code> of this <code>SWWorld</code>
 	 */
-	private SWGrid myGrid;
+	public ArrayList<SWGrid> worldGrids = new ArrayList<SWGrid>();
+	
+	/**
+	 * current <code>SWGrid</code> the <code>player</code> is on to display
+	 */
+	public int currentGrid;
 	
 	/**The entity manager of the world which keeps track of <code>SWEntities</code> and their <code>SWLocation</code>s*/
-	private static final EntityManager<SWEntityInterface, SWLocation> entityManager = new EntityManager<SWEntityInterface, SWLocation>();
+	protected static final EntityManager<SWEntityInterface, SWLocation> entityManager = new EntityManager<SWEntityInterface, SWLocation>();
 	
 	/**
 	 * Constructor of <code>SWWorld</code>. This will initialize the <code>SWLocationMaker</code>
-	 * and the grid.
+	 * and all the grids for all worlds.
 	 */
 	public SWWorld() {
 		SWLocation.SWLocationMaker factory = SWLocation.getMaker();
-		myGrid = new SWGrid(factory);
-		space = myGrid;
 		
+		// Initialise all grids and place in an ArrayList
+		// currentGrid will change depending on where the player is on
+ 		SWGrid tatooineGrid = new SWGrid(10, 10, factory);
+		worldGrids.add(tatooineGrid);
+		
+		SWGrid rebelGrid = new SWGrid(2, 2, factory);
+		worldGrids.add(rebelGrid);
+		
+		SWGrid deathStarGrid = new SWGrid(10, 10, factory);
+		worldGrids.add(deathStarGrid);
+		
+		// Start with Tatooine : position 0 in the array
+		currentGrid = 0;
 	}
 
 	/** 
@@ -49,7 +67,7 @@ public class SWWorld extends World {
 	 * @return the height of the grid
 	 */
 	public int height() {
-		return space.getHeight();
+		return getGrid().getHeight();
 	}
 	
 	/** 
@@ -59,22 +77,26 @@ public class SWWorld extends World {
 	 * @return the height of the grid
 	 */
 	public int width() {
-		return space.getWidth();
+		return getGrid().getWidth();
 	}
 	
 	/**
-	 * Set up the world, setting descriptions for locations and placing items and actors
+	 * Sets up Tatooine, setting descriptions for locations and placing items and actors
 	 * on the grid.
 	 * 
 	 * @author 	ram
 	 * @param 	iface a MessageRenderer to be passed onto newly-created entities
+	 * @return 
 	 */
-	public void initializeWorld(MessageRenderer iface) {
+	public void initializeTatooine(MessageRenderer iface) {
+		// Set Grid to modify to Tatooine's grids
+		SWGrid tatooineGrid = worldGrids.get(0);
+		
 		SWLocation loc;
 		// Set default location string
-		for (int row=0; row < height(); row++) {
-			for (int col=0; col < width(); col++) {
-				loc = myGrid.getLocationByCoordinates(col, row);
+		for (int row=0; row < 10; row++) {
+			for (int col=0; col < 10; col++) {
+				loc = tatooineGrid.getLocationByCoordinates(col, row);
 				loc.setLongDescription("SWWorld (" + col + ", " + row + ")");
 				loc.setShortDescription("SWWorld (" + col + ", " + row + ")");
 				loc.setSymbol('.');				
@@ -85,7 +107,7 @@ public class SWWorld extends World {
 		// BadLands
 		for (int row = 5; row < 8; row++) {
 			for (int col = 4; col < 7; col++) {
-				loc = myGrid.getLocationByCoordinates(col, row);
+				loc = tatooineGrid.getLocationByCoordinates(col, row);
 				loc.setLongDescription("Badlands (" + col + ", " + row + ")");
 				loc.setShortDescription("Badlands (" + col + ", " + row + ")");
 				loc.setSymbol('b');
@@ -93,34 +115,39 @@ public class SWWorld extends World {
 		}
 		
 		//Ben's Hut
-		loc = myGrid.getLocationByCoordinates(5, 6);
+		loc = tatooineGrid.getLocationByCoordinates(5, 6);
 		loc.setLongDescription("Ben's Hut");
 		loc.setShortDescription("Ben's Hut");
 		loc.setSymbol('H');
 		
 		Direction [] patrolmoves = {CompassBearing.EAST, CompassBearing.EAST,
-                CompassBearing.SOUTH,
-                CompassBearing.WEST, CompassBearing.WEST,
-                CompassBearing.SOUTH,
-                CompassBearing.EAST, CompassBearing.EAST,
-                CompassBearing.NORTHWEST, CompassBearing.NORTHWEST};
+	            CompassBearing.SOUTH,
+	            CompassBearing.WEST, CompassBearing.WEST,
+	            CompassBearing.SOUTH,
+	            CompassBearing.EAST, CompassBearing.EAST,
+	            CompassBearing.NORTHWEST, CompassBearing.NORTHWEST};
 		
 		BenKenobi ben = BenKenobi.getBenKenobi(iface, this, patrolmoves);
 		ben.setSymbol("B");
 		
-		loc = myGrid.getLocationByCoordinates(4,  5);
+		loc = tatooineGrid.getLocationByCoordinates(4,  5);
 		entityManager.setLocation(ben, loc);
 			
 		// Luke	
 		Player luke = new Player(Team.GOOD, 100, 20, iface, this);
 		luke.setShortDescription("Luke");
-		loc = myGrid.getLocationByCoordinates(5,9);
+		loc = tatooineGrid.getLocationByCoordinates(5,9);
 		entityManager.setLocation(luke, loc);
 		luke.resetMoveCommands(loc);
 		
+		// Millennium Falcon
+		TatooineFalcon falcon = new TatooineFalcon(iface);
+		loc = tatooineGrid.getLocationByCoordinates(4, 9);
+		entityManager.setLocation(falcon,  loc);
+		
 		// Beggar's Canyon 
 		for (int col = 3; col < 8; col++) {
-			loc = myGrid.getLocationByCoordinates(col, 8);
+			loc = tatooineGrid.getLocationByCoordinates(col, 8);
 			loc.setShortDescription("Beggar's Canyon (" + col + ", " + 8 + ")");
 			loc.setLongDescription("Beggar's Canyon  (" + col + ", " + 8 + ")");
 			loc.setSymbol('C');
@@ -130,7 +157,7 @@ public class SWWorld extends World {
 		// Moisture Farms
 		for (int row = 0; row < 10; row++) {
 			for (int col = 8; col < 10; col++) {
-				loc = myGrid.getLocationByCoordinates(col, row);
+				loc = tatooineGrid.getLocationByCoordinates(col, row);
 				loc.setLongDescription("Moisture Farm (" + col + ", " + row + ")");
 				loc.setShortDescription("Moisture Farm (" + col + ", " + row + ")");
 				loc.setSymbol('F');
@@ -144,54 +171,55 @@ public class SWWorld extends World {
 		// and placed somewhere with enough space
 		Direction [] r2d2Patrol = 
 			{CompassBearing.EAST, CompassBearing.EAST,CompassBearing.EAST, CompassBearing.EAST,CompassBearing.EAST,
-                CompassBearing.WEST, CompassBearing.WEST, CompassBearing.WEST, CompassBearing.WEST, CompassBearing.WEST};
+	            CompassBearing.WEST, CompassBearing.WEST, CompassBearing.WEST, CompassBearing.WEST, CompassBearing.WEST};
 		R2D2 theR2 = new R2D2(iface, this, r2d2Patrol);
 		theR2.setSymbol("R");
-		loc = myGrid.getLocationByCoordinates(1, 1);
+		//loc = tatooineGrid.getLocationByCoordinates(1, 1);
+		loc = tatooineGrid.getLocationByCoordinates(5, 8);
 		entityManager.setLocation(theR2, loc);
 		
 		// C-3P0
 		C3P0 theC3 = new C3P0(iface, this);
 		theC3.setSymbol("3");
-		loc = myGrid.getLocationByCoordinates(1, 2);
+		loc = tatooineGrid.getLocationByCoordinates(1, 2);
 		entityManager.setLocation(theC3, loc);
 		
 		// Disabled Droids for R2-D2
 		BasicDroid disabledDroid1 = new BasicDroid(50, 0, "Generic Droid A", iface, this) ;
 		disabledDroid1.disable();
 		disabledDroid1.setSymbol("D");
-		loc = myGrid.getLocationByCoordinates(2, 1);
+		loc = tatooineGrid.getLocationByCoordinates(2, 1);
 		entityManager.setLocation(disabledDroid1, loc);
 		
 		BasicDroid disabledDroid2 = new BasicDroid(50, 0, "Generic Droid B", iface, this) ;
 		disabledDroid2.disable();
 		disabledDroid2.setSymbol("D");
-		loc = myGrid.getLocationByCoordinates(4, 1);
+		loc = tatooineGrid.getLocationByCoordinates(4, 1);
 		entityManager.setLocation(disabledDroid2, loc);
 		
 		BasicDroid disabledDroid3 = new BasicDroid(50, 0, "Generic Droid C", iface, this) ;
 		disabledDroid3.disable();
 		disabledDroid3.setSymbol("D");
-		loc = myGrid.getLocationByCoordinates(6, 1);
+		loc = tatooineGrid.getLocationByCoordinates(6, 1);
 		entityManager.setLocation(disabledDroid3, loc);
 		
 		BasicDroid disabledDroid4 = new BasicDroid(50, 0, "Generic Droid D", iface, this) ;
 		disabledDroid4.disable();
 		disabledDroid4.setSymbol("D");
-		loc = myGrid.getLocationByCoordinates(7, 2);
+		loc = tatooineGrid.getLocationByCoordinates(7, 2);
 		entityManager.setLocation(disabledDroid4, loc);
 		
 		BasicDroid disabledDroid5 = new BasicDroid(50, 0, "Generic Droid E", iface, this) ;
 		disabledDroid5.disable();
 		disabledDroid5.setSymbol("D");
-		loc = myGrid.getLocationByCoordinates(3, 4);
+		loc = tatooineGrid.getLocationByCoordinates(3, 4);
 		entityManager.setLocation(disabledDroid5, loc);
 		
 		/*
 		 * Scatter some other entities and actors around
 		 */
 		// a canteen
-		loc = myGrid.getLocationByCoordinates(5,8);
+		loc = tatooineGrid.getLocationByCoordinates(5,8);
 		SWEntity canteen = new Canteen(iface, 50,0);
 		canteen.setSymbol("o");
 		canteen.setHitpoints(500);
@@ -199,15 +227,15 @@ public class SWWorld extends World {
 		canteen.addAffordance(new Take(canteen, iface));
 		
 		//a full canteen on Ben's patrol route
-		loc = myGrid.getLocationByCoordinates(5,6);
+		loc = tatooineGrid.getLocationByCoordinates(5,6);
 		SWEntity bensCanteen = new Canteen(iface, 50, 50);
 		bensCanteen.setSymbol("o");
 		bensCanteen.setHitpoints(500);;
 		entityManager.setLocation(bensCanteen, loc);
 		bensCanteen.addAffordance(new Take(bensCanteen, iface));
-
+	
 		// an oil can treasure
-		loc = myGrid.getLocationByCoordinates(5,8);
+		loc = tatooineGrid.getLocationByCoordinates(5,8);
 		SWEntity oilcan = new OilCan(iface, 100, 100);
 		oilcan.setSymbol("x");
 		oilcan.setHitpoints(100);
@@ -217,62 +245,138 @@ public class SWWorld extends World {
 		
 		// a lightsaber
 		LightSaber lightSaber = new LightSaber(iface);
-		loc = myGrid.getLocationByCoordinates(5,5);
+		loc = tatooineGrid.getLocationByCoordinates(5,5);
 		entityManager.setLocation(lightSaber, loc);
 		
 		// A blaster 
 		Blaster blaster = new Blaster(iface);
-		loc = myGrid.getLocationByCoordinates(3, 4);
+		loc = tatooineGrid.getLocationByCoordinates(3, 4);
 		entityManager.setLocation(blaster, loc);
 		
 		// DroidParts for testing
 		DroidParts droidparts = new DroidParts(iface);
-		loc = myGrid.getLocationByCoordinates(5, 8);
+		loc = tatooineGrid.getLocationByCoordinates(5, 8);
 		entityManager.setLocation(droidparts, loc);
 		
 		// A Tusken Raider
 		TuskenRaider tim = new TuskenRaider(200, 0, "Tim", iface, this);
 		
 		tim.setSymbol("T");
-		loc = myGrid.getLocationByCoordinates(4,3);
+		loc = tatooineGrid.getLocationByCoordinates(4,3);
 		entityManager.setLocation(tim, loc);
 		
 		// A Tusken Raider
 		TuskenRaider tom = new TuskenRaider(200, 0, "Tom", iface, this);
 		
 		tom.setSymbol("T");
-		loc = myGrid.getLocationByCoordinates(4,3);
+		loc = tatooineGrid.getLocationByCoordinates(4,3);
 		entityManager.setLocation(tom, loc);
 		
 		// A Tusken Raider
 		TuskenRaider tem = new TuskenRaider(200, 0, "Tem", iface, this);
 		
 		tem.setSymbol("T");
-		loc = myGrid.getLocationByCoordinates(4,3);
+		loc = tatooineGrid.getLocationByCoordinates(4,3);
 		entityManager.setLocation(tem, loc);
 		
 		// A Tusken Raider
 		TuskenRaider tym = new TuskenRaider(200, 0, "Tym", iface, this);
 		
 		tym.setSymbol("T");
-		loc = myGrid.getLocationByCoordinates(4,3);
+		loc = tatooineGrid.getLocationByCoordinates(4,3);
 		entityManager.setLocation(tym, loc);
 		
 		// Uncle Owen
 		Dummy uown = new Dummy(10,0,"Uncle Owen", iface, this);
 		
 		uown.setSymbol("U");
-		loc = myGrid.getLocationByCoordinates(8, 4);
+		loc = tatooineGrid.getLocationByCoordinates(8, 4);
 		entityManager.setLocation(uown, loc);
 		
 		// Aunt Beru
 		Dummy aberu = new Dummy(10,0,"Aunt Beru", iface, this);
 		
 		aberu.setSymbol("U");
-		loc = myGrid.getLocationByCoordinates(9, 4);
+		loc = tatooineGrid.getLocationByCoordinates(9, 4);
 		entityManager.setLocation(aberu, loc);
-		
+	
 	}	
+	/**
+	 * Sets up the Rebel Base, setting descriptions for locations and placing items and actors
+	 * on the grid.
+	 * 
+	 * @author 	ram
+	 * @param 	iface a MessageRenderer to be passed onto newly-created entities
+	 * @return 
+	 */
+	public void initializeRebelBase(MessageRenderer iface) {
+		
+		//set Grid to modify to RebelBase grid
+		SWGrid rebelGrid = worldGrids.get(1);
+		
+		
+		SWLocation loc;
+		// Set default location string
+		for (int row=0; row < 2; row++) {
+			for (int col=0; col < 2; col++) {
+				loc = rebelGrid.getLocationByCoordinates(col, row);
+				loc.setLongDescription("SWWorld (" + col + ", " + row + ")");
+				loc.setShortDescription("SWWorld (" + col + ", " + row + ")");
+				loc.setSymbol('.');				
+			}
+		}
+		// Millenium Falcon
+		RebelFalcon falcon = new RebelFalcon(iface);
+		loc = rebelGrid.getLocationByCoordinates(0, 0);
+		entityManager.setLocation(falcon,  loc);
+		
+		//Admiral Ackbar
+		AdmiralAckbar ackbar = AdmiralAckbar.getAdmiralAckbar(iface, this);
+		ackbar.setSymbol("A");
+		loc = rebelGrid.getLocationByCoordinates(1, 1);
+		entityManager.setLocation(ackbar, loc);
+		
+		// Mon Mothma
+		MonMothma mothma = MonMothma.getMonMothma(iface, this);
+		mothma.setSymbol("O");
+		loc = rebelGrid.getLocationByCoordinates(0, 1);
+		entityManager.setLocation(mothma, loc);
+	}
+	/**
+	 * Sets up the Death Star, setting descriptions for locations and placing items and actors
+	 * on the grid.
+	 * 
+	 * @author 	ram
+	 * @param 	iface a MessageRenderer to be passed onto newly-created entities
+	 * @return 
+	 */
+	public void initializeDeathStar(MessageRenderer iface) {
+		
+		//set Grid to modify to DeathStar grid
+		SWGrid deathStarGrid = worldGrids.get(2);
+		
+		SWLocation loc;
+		// Set default location string
+		for (int row=0; row < 10; row++) {
+			for (int col=0; col < 10; col++) {
+				loc = deathStarGrid.getLocationByCoordinates(col, row);
+				loc.setLongDescription("SWWorld (" + col + ", " + row + ")");
+				loc.setShortDescription("SWWorld (" + col + ", " + row + ")");
+				loc.setSymbol('.');				
+			}
+		}
+		// Millenium Falcon
+		DeathStarFalcon falcon = new DeathStarFalcon(iface);
+		loc = deathStarGrid.getLocationByCoordinates(0, 0);
+		entityManager.setLocation(falcon,  loc);
+		
+		//Princess Leia
+		LeiaOrgana leia = LeiaOrgana.getLeiaOrgana(iface, this);
+		leia.setSymbol("L");
+		loc = deathStarGrid.getLocationByCoordinates(9, 9);
+		entityManager.setLocation(leia, loc);
+		
+	}
 
 	/*
 	 * Render method was removed from here
@@ -299,7 +403,15 @@ public class SWWorld extends World {
 	 * @return the grid
 	 */
 	public SWGrid getGrid() {
-		return myGrid;
+		return worldGrids.get(currentGrid);
+	}
+	/**
+	 * Accessor for the GRIDS
+	 * 
+	 * @return the gridlist
+	 */
+	public ArrayList<SWGrid> getWorldGrids() {
+		return worldGrids;
 	}
 
 	/**
@@ -353,7 +465,13 @@ public class SWWorld extends World {
 		return entityManager;
 	}
 
-	public static void addActor(SWActor a, SWLocation loc) {
-	entityManager.setLocation(a, loc);
+	/**
+	 * Changes the current <code>SWGrid</code> to display
+	 * 
+	 * @param newCurrent index of the grid to change to
+	 */
+	public void setCurrentGrid(int newCurrent) {
+		currentGrid = newCurrent;
 	}
 }
+
