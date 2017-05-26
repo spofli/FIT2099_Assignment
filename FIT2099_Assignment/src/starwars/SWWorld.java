@@ -139,10 +139,6 @@ public class SWWorld extends World {
 		loc = tatooineGrid.getLocationByCoordinates(5,9);
 		entityManager.setLocation(luke, loc);
 		luke.resetMoveCommands(loc);
-	
-		//TatooineFalcon falcon = new TatooineFalcon(iface);
-		//loc = tatooineGrid.getLocationByCoordinates(4, 9);
-		//entityManager.setLocation(falcon,  loc);
 
 		// Millennium Falcon
 		MillenniumFalcon Tfalcon = new MillenniumFalcon(iface);
@@ -329,10 +325,6 @@ public class SWWorld extends World {
 				loc.setSymbol('.');				
 			}
 		}
-		
-		//RebelFalcon falcon = new RebelFalcon(iface);
-		//loc = rebelGrid.getLocationByCoordinates(0, 0);
-		//entityManager.setLocation(falcon,  loc);
 
 		// Millenium Falcon
 		MillenniumFalcon RBfalcon = new MillenniumFalcon(iface);
@@ -374,11 +366,7 @@ public class SWWorld extends World {
 				loc.setSymbol('.');				
 			}
 		}
-		
-		//DeathStarFalcon falcon = new DeathStarFalcon(iface);
-		//loc = deathStarGrid.getLocationByCoordinates(0, 0);
-		//entityManager.setLocation(falcon,  loc);
-		
+				
 		// Millenium Falcon
 		MillenniumFalcon DSfalcon = new MillenniumFalcon(iface);
 		loc = deathStarGrid.getLocationByCoordinates(0, 0);
