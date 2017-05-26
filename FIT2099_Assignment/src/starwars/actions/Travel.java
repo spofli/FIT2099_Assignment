@@ -128,9 +128,6 @@ public class Travel extends SWAffordance implements SWActionInterface {
 		a.resetMoveCommands(falconLocation);
 		a.say(a.getShortDescription() + " has flown to the " + grids.get(selection).getGridName());
 	}
-	public void teleportTeam(List<SWEntityInterface> entityList) {
-		
-	}
 	
 	@Override
 	public String getDescription() {
